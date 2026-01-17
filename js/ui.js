@@ -201,6 +201,86 @@ const MKUI = {
             btn.classList.remove('btn-loading');
             btn.disabled = false;
         }
+    },
+
+    // Skeleton Loaders
+    renderProductCardSkeleton() {
+        return `
+            <div class="skeleton-product-card">
+                <div class="skeleton skeleton-image"></div>
+                <div class="skeleton-body">
+                    <div class="skeleton skeleton-category"></div>
+                    <div class="skeleton skeleton-name"></div>
+                    <div class="skeleton skeleton-price"></div>
+                    <div class="skeleton-colors">
+                        <div class="skeleton skeleton-color"></div>
+                        <div class="skeleton skeleton-color"></div>
+                        <div class="skeleton skeleton-color"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
+    renderProductGridSkeleton(count = 8) {
+        return Array(count).fill(this.renderProductCardSkeleton()).join('');
+    },
+
+    renderTableRowSkeleton(columns = 5) {
+        const cells = Array(columns).fill('<div class="skeleton skeleton-table-cell"></div>').join('');
+        return `<div class="skeleton-table-row">${cells}</div>`;
+    },
+
+    renderTableSkeleton(rows = 5, columns = 5) {
+        return `<div class="skeleton-table">${Array(rows).fill(this.renderTableRowSkeleton(columns)).join('')}</div>`;
+    },
+
+    renderStatCardSkeleton() {
+        return `
+            <div class="skeleton-stat-card">
+                <div class="skeleton skeleton-icon"></div>
+                <div class="skeleton skeleton-value"></div>
+                <div class="skeleton skeleton-label"></div>
+            </div>
+        `;
+    },
+
+    renderChartSkeleton() {
+        return `
+            <div class="skeleton-chart">
+                <div class="skeleton skeleton-chart-title"></div>
+                <div class="skeleton skeleton-chart-area"></div>
+            </div>
+        `;
+    },
+
+    // Show skeleton in a container
+    showSkeleton(container, type = 'products', options = {}) {
+        if (!container) return;
+        container.classList.add('skeleton-loading');
+        
+        let html = '';
+        switch (type) {
+            case 'products':
+                html = this.renderProductGridSkeleton(options.count || 8);
+                break;
+            case 'table':
+                html = this.renderTableSkeleton(options.rows || 5, options.columns || 5);
+                break;
+            case 'stats':
+                html = Array(options.count || 4).fill(this.renderStatCardSkeleton()).join('');
+                break;
+            case 'chart':
+                html = this.renderChartSkeleton();
+                break;
+        }
+        container.innerHTML = html;
+    },
+
+    // Hide skeleton and show real content
+    hideSkeleton(container) {
+        if (!container) return;
+        container.classList.remove('skeleton-loading');
     }
 };
 

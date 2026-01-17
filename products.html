@@ -264,9 +264,17 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             MKApp.init();
-            parseURLParams();
-            renderProducts();
-            bindFilterEvents();
+            
+            // Show skeleton while loading
+            const grid = document.getElementById('products-grid');
+            MKUI.showSkeleton(grid, 'products', { count: 8 });
+            
+            // Simulate loading delay for smooth UX
+            setTimeout(() => {
+                parseURLParams();
+                renderProducts();
+                bindFilterEvents();
+            }, 500);
         });
 
         function parseURLParams() {
