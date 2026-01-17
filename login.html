@@ -171,18 +171,19 @@
             const params = new URLSearchParams(window.location.search);
             const returnUrl = params.get('return');
             
+            // Admin users only get admin panel - no website access
+            if (user.role === 'admin') {
+                window.location.href = 'admin/index.html';
+                return;
+            }
+
+            // Regular users get redirected to return URL or account page
             if (returnUrl) {
                 window.location.href = decodeURIComponent(returnUrl);
                 return;
             }
 
-            // Role-based default redirection
-            if (user.role === 'admin') {
-                window.open('admin/index.html', '_blank');
-                window.location.href = 'index.html';
-            } else {
-                window.location.href = 'account.html';
-            }
+            window.location.href = 'account.html';
         }
     </script>
 </body>
