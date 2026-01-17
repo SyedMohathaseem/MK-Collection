@@ -1,16 +1,30 @@
 /* MK Collection - User Authentication */
 /* SEPARATE SESSIONS: Admin and Customer use different storage keys */
+/* HYBRID SESSION: localStorage for cross-tab, sessionStorage marker for browser-close detection */
 
 const MKAuth = {
     // Separate storage keys for admin and customer
     customerStorageKey: 'mk_customer_session',
     adminStorageKey: 'mk_admin_session',
+    sessionMarker: 'mk_session_active',
     
+    /**
+     * Initialize - check if browser was closed and clear old sessions
+     */
+    init() {
+        // If sessionStorage marker is missing, browser was closed - clear old sessions
+        if (!sessionStorage.getItem(this.sessionMarker)) {
+            localStorage.removeItem(this.customerStorageKey);
+            localStorage.removeItem(this.adminStorageKey);
+        }
+        // Set the marker for this browser session
+        sessionStorage.setItem(this.sessionMarker, 'true');
+    },
+
     /**
      * Get the appropriate storage key based on context
      */
     _getStorageKey() {
-        // Admin pages use admin session, website uses customer session
         const isAdminPage = window.location.pathname.includes('/admin/');
         return isAdminPage ? this.adminStorageKey : this.customerStorageKey;
     },
@@ -19,6 +33,7 @@ const MKAuth = {
      * Get current user from appropriate session
      */
     getUser() {
+        this.init(); // Always check session marker
         const key = this._getStorageKey();
         const stored = localStorage.getItem(key);
         return stored ? JSON.parse(stored) : null;
@@ -28,6 +43,7 @@ const MKAuth = {
      * Get admin user (for admin panel only)
      */
     getAdminUser() {
+        this.init();
         const stored = localStorage.getItem(this.adminStorageKey);
         return stored ? JSON.parse(stored) : null;
     },
@@ -36,6 +52,7 @@ const MKAuth = {
      * Get customer user (for website only)
      */
     getCustomerUser() {
+        this.init();
         const stored = localStorage.getItem(this.customerStorageKey);
         return stored ? JSON.parse(stored) : null;
     },
@@ -69,7 +86,6 @@ const MKAuth = {
         
         const obfuscatedInput = this._obfuscate(password);
         if (!user || user.password !== obfuscatedInput) {
-            // Check plain password fallback for legacy users
             if (user && user.password === password) {
                 user.password = obfuscatedInput;
                 localStorage.setItem('mk_users', JSON.stringify(users));
@@ -94,15 +110,14 @@ const MKAuth = {
             addresses: user.addresses || []
         };
 
-        // IMPORTANT: Save to the CORRECT session based on role
+        // Set session marker
+        sessionStorage.setItem(this.sessionMarker, 'true');
+
+        // Save to localStorage (works across tabs)
         if (user.role === 'admin') {
-            // Admin login - save to admin session ONLY
             localStorage.setItem(this.adminStorageKey, JSON.stringify(sessionData));
-            // Do NOT touch customer session
         } else {
-            // Customer login - save to customer session ONLY
             localStorage.setItem(this.customerStorageKey, JSON.stringify(sessionData));
-            // Do NOT touch admin session
         }
         
         return sessionData;
@@ -123,7 +138,7 @@ const MKAuth = {
             id: 'user-' + Date.now(), 
             ...data, 
             password: this._obfuscate(data.password),
-            role: 'user', // New registrations are always customers
+            role: 'user',
             addresses: [], 
             createdAt: new Date().toISOString() 
         };
@@ -135,7 +150,6 @@ const MKAuth = {
     logout() {
         const isAdminPage = window.location.pathname.includes('/admin/');
         
-        // Only remove the session for the current context
         if (isAdminPage) {
             localStorage.removeItem(this.adminStorageKey);
         } else {
@@ -146,16 +160,10 @@ const MKAuth = {
         window.location.href = prefix + 'login.html';
     },
 
-    /**
-     * Logout admin specifically (used when switching)
-     */
     logoutAdmin() {
         localStorage.removeItem(this.adminStorageKey);
     },
 
-    /**
-     * Logout customer specifically (used when switching)
-     */
     logoutCustomer() {
         localStorage.removeItem(this.customerStorageKey);
     },
@@ -206,9 +214,6 @@ const MKAuth = {
         return true;
     },
 
-    /**
-     * Require admin login - checks admin session specifically
-     */
     requireAdmin() {
         const user = this.getAdminUser();
         if (!user || user.role !== 'admin') {
@@ -225,3 +230,6 @@ const MKAuth = {
         return btoa('mk_' + str).split('').reverse().join('');
     }
 };
+
+// Initialize on load to check for browser close
+MKAuth.init();

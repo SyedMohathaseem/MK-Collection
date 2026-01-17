@@ -171,10 +171,10 @@
             const params = new URLSearchParams(window.location.search);
             const returnUrl = params.get('return');
             
-            // Admin users only get admin panel in new tab - no website access
+            // Admin users - open admin panel in NEW TAB
             if (user.role === 'admin') {
                 window.open('admin/index.html', '_blank');
-                // Keep session for admin panel, just show message on login page
+                // Show success message on login page
                 document.querySelector('.auth-tabs').innerHTML = `
                     <div style="text-align:center;padding:var(--space-8)">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--color-success)" width="64" height="64" style="margin:0 auto var(--space-4)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
