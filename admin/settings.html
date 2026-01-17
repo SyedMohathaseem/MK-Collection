@@ -182,14 +182,20 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/store.js"></script>
+    <script src="../js/ui.js"></script>
     <script src="js/admin.js"></script>
     <script>
-        function saveStoreSettings() {
+        async function saveStoreSettings() {
+            const btn = document.querySelector('button[onclick="saveStoreSettings()"]');
             const storeName = document.getElementById('store-name').value;
             if (!storeName) {
                 MKAdmin.showToast('Store name is required', 'error');
                 return;
             }
+            
+            MKUI.setLoading(btn, true);
+            await new Promise(r => setTimeout(r, 800));
+
             // Save to localStorage
             localStorage.setItem('mk_store_settings', JSON.stringify({
                 name: storeName,
@@ -199,18 +205,28 @@
                 address: document.getElementById('store-address').value
             }));
             MKAdmin.showToast('Store settings saved successfully!', 'success');
+            MKUI.setLoading(btn, false);
         }
 
-        function saveShippingSettings() {
+        async function saveShippingSettings() {
+            const btn = document.querySelector('button[onclick="saveShippingSettings()"]');
+            MKUI.setLoading(btn, true);
+            await new Promise(r => setTimeout(r, 800));
+
             localStorage.setItem('mk_shipping_settings', JSON.stringify({
                 freeShippingThreshold: document.getElementById('free-shipping').value,
                 shippingRate: document.getElementById('shipping-rate').value,
                 internationalShipping: document.getElementById('intl-shipping').checked
             }));
             MKAdmin.showToast('Shipping settings saved!', 'success');
+            MKUI.setLoading(btn, false);
         }
 
-        function saveNotificationSettings() {
+        async function saveNotificationSettings() {
+            const btn = document.querySelector('button[onclick="saveNotificationSettings()"]');
+            MKUI.setLoading(btn, true);
+            await new Promise(r => setTimeout(r, 800));
+
             localStorage.setItem('mk_notification_settings', JSON.stringify({
                 notifyOrders: document.getElementById('notify-orders').checked,
                 notifyLowStock: document.getElementById('notify-low-stock').checked,
@@ -218,9 +234,11 @@
                 dailySummary: document.getElementById('daily-summary').checked
             }));
             MKAdmin.showToast('Notification settings saved!', 'success');
+            MKUI.setLoading(btn, false);
         }
 
-        function saveAdminSettings() {
+        async function saveAdminSettings() {
+            const btn = document.querySelector('button[onclick="saveAdminSettings()"]');
             const password = document.getElementById('admin-password').value;
             const confirm = document.getElementById('admin-password-confirm').value;
             
@@ -229,6 +247,9 @@
                 return;
             }
             
+            MKUI.setLoading(btn, true);
+            await new Promise(r => setTimeout(r, 1000));
+
             localStorage.setItem('mk_admin_settings', JSON.stringify({
                 name: document.getElementById('admin-name').value,
                 email: document.getElementById('admin-email').value
@@ -238,6 +259,7 @@
             // Clear password fields
             document.getElementById('admin-password').value = '';
             document.getElementById('admin-password-confirm').value = '';
+            MKUI.setLoading(btn, false);
         }
 
         // Load saved settings on page load

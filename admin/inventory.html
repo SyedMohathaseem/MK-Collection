@@ -60,6 +60,7 @@
                 </div>
             </nav>
         </aside>
+        <div class="admin-sidebar-overlay" onclick="MKAdmin.toggleSidebar()"></div>
 
         <!-- Main Content -->
         <main class="admin-main">
@@ -139,7 +140,9 @@
                 </div>
 
                 <!-- Inventory Table -->
-                <div class="admin-table" id="inventory-table"></div>
+                <div class="admin-table-container">
+                    <table class="admin-table" id="inventory-table"></table>
+                </div>
             </div>
         </main>
     </div>
@@ -193,6 +196,7 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/store.js"></script>
+    <script src="../js/ui.js"></script>
     <script src="js/admin.js"></script>
     <script>
         let editingProductId = null;
@@ -281,8 +285,9 @@
             editingProductId = null;
         }
 
-        function saveStock() {
+        async function saveStock() {
             if (!editingProductId) return;
+            const btn = document.querySelector('button[onclick="saveStock()"]');
             
             const total = 
                 parseInt(document.getElementById('stock-xs').value) +
@@ -293,11 +298,15 @@
 
             const item = MKAdmin.inventory.find(i => i.id === editingProductId);
             if (item) {
+                MKUI.setLoading(btn, true);
+                await new Promise(r => setTimeout(r, 800));
+
                 item.stock = total;
                 item.status = total === 0 ? 'out-of-stock' : total < 10 ? 'low-stock' : 'in-stock';
                 item.lastUpdated = new Date().toISOString().split('T')[0];
                 renderInventoryTable();
                 MKAdmin.showToast('Stock updated successfully', 'success');
+                MKUI.setLoading(btn, false);
             }
             closeStockModal();
         }

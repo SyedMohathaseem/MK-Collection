@@ -117,20 +117,24 @@
 
         async function handleLogin(e) {
             e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
             try {
+                MKUI.setLoading(btn, true);
                 await MKAuth.login(email, password);
                 MKApp.showToast('Welcome back!', 'success');
                 setTimeout(redirectAfterLogin, 1000);
             } catch (error) {
+                MKUI.setLoading(btn, false);
                 MKApp.showToast(error.message, 'error');
             }
         }
 
         async function handleRegister(e) {
             e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
             const data = {
                 firstName: document.getElementById('reg-firstname').value,
                 lastName: document.getElementById('reg-lastname').value,
@@ -139,10 +143,12 @@
             };
 
             try {
+                MKUI.setLoading(btn, true);
                 await MKAuth.register(data);
                 MKApp.showToast('Account created successfully!', 'success');
                 setTimeout(redirectAfterLogin, 1000);
             } catch (error) {
+                MKUI.setLoading(btn, false);
                 MKApp.showToast(error.message, 'error');
             }
         }

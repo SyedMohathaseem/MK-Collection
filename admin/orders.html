@@ -60,6 +60,7 @@
                 </div>
             </nav>
         </aside>
+        <div class="admin-sidebar-overlay" onclick="MKAdmin.toggleSidebar()"></div>
 
         <!-- Main Content -->
         <main class="admin-main">
@@ -118,7 +119,9 @@
                 </div>
 
                 <!-- Orders Table -->
-                <div class="admin-table" id="orders-table"></div>
+                <div class="admin-table-container">
+                    <div class="admin-table" id="orders-table"></div>
+                </div>
             </div>
         </main>
     </div>
@@ -151,6 +154,7 @@
     <script src="../js/data.js"></script>
     <script src="../js/store.js"></script>
     <script src="../js/notify.js"></script>
+    <script src="../js/ui.js"></script>
     <script src="js/admin.js"></script>
     <script>
         let selectedOrderId = null;
@@ -258,14 +262,20 @@
             selectedOrderId = null;
         }
 
-        function updateOrderStatus() {
+        async function updateOrderStatus() {
             if (!selectedOrderId) return;
+            const btn = document.querySelector('button[onclick="updateOrderStatus()"]');
             const newStatus = document.getElementById('update-status').value;
             const order = MKAdmin.orders.find(o => o.id === selectedOrderId);
+            
             if (order) {
+                MKUI.setLoading(btn, true);
+                await new Promise(r => setTimeout(r, 800));
+                
                 order.status = newStatus;
                 renderOrdersTable();
                 MKAdmin.showToast(`Order status updated to ${newStatus}`, 'success');
+                MKUI.setLoading(btn, false);
                 closeOrderModal();
             }
         }

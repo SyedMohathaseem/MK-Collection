@@ -183,15 +183,29 @@
 
         async function updateProfile(e) {
             e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
             try {
-                await MKAuth.updateProfile({
-                    firstName: document.getElementById('profile-firstname').value,
-                    lastName: document.getElementById('profile-lastname').value,
-                    phone: document.getElementById('profile-phone').value
-                });
+                MKUI.setLoading(btn, true);
+                if (typeof MKAuth.updateProfile === 'function') {
+                    await MKAuth.updateProfile({
+                        firstName: document.getElementById('profile-firstname').value,
+                        lastName: document.getElementById('profile-lastname').value,
+                        phone: document.getElementById('profile-phone').value
+                    });
+                } else {
+                    // Fallback simulation if not in auth.js
+                    await new Promise(r => setTimeout(r, 1000));
+                    const user = MKAuth.getUser();
+                    user.firstName = document.getElementById('profile-firstname').value;
+                    user.lastName = document.getElementById('profile-lastname').value;
+                    user.phone = document.getElementById('profile-phone').value;
+                    localStorage.setItem(MKAuth.storageKey, JSON.stringify(user));
+                }
                 MKApp.showToast('Profile updated!', 'success');
             } catch (error) {
                 MKApp.showToast(error.message, 'error');
+            } finally {
+                MKUI.setLoading(btn, false);
             }
         }
 

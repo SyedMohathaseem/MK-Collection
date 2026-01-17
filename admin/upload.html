@@ -171,6 +171,7 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/store.js"></script>
+    <script src="../js/ui.js"></script>
     <script src="js/admin.js"></script>
     <script>
         const uploadZone = document.getElementById('upload-zone');
@@ -253,7 +254,7 @@
             fileInput.value = '';
         }
 
-        function saveImages() {
+        async function saveImages() {
             const product = document.getElementById('product-select').value;
             if (!product) {
                 MKAdmin.showToast('Please select a product', 'error');
@@ -264,12 +265,15 @@
                 return;
             }
 
+            const btn = document.querySelector('button[onclick="saveImages()"]');
+            MKUI.setLoading(btn, true);
             MKAdmin.showToast(`Saving ${uploadedFiles.length} images...`, 'default');
             
-            setTimeout(() => {
-                MKAdmin.showToast('Images saved successfully!', 'success');
-                clearUploads();
-            }, 1500);
+            await new Promise(r => setTimeout(r, 1500));
+
+            MKAdmin.showToast('Images saved successfully!', 'success');
+            MKUI.setLoading(btn, false);
+            clearUploads();
         }
 
         function viewMediaLibrary() {

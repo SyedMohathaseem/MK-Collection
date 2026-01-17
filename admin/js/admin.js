@@ -23,6 +23,12 @@ const MKAdmin = {
         this.setupSync();
     },
 
+    toggleSidebar() {
+        document.querySelector('.admin-sidebar')?.classList.toggle('open');
+        document.querySelector('.admin-sidebar-overlay')?.classList.toggle('active');
+        document.body.classList.toggle('sidebar-open');
+    },
+
     setupSync() {
         // Listen for changes from website
         if (typeof MKStore !== 'undefined') {
@@ -35,7 +41,21 @@ const MKAdmin = {
     bindEvents() {
         // Mobile sidebar toggle
         document.querySelector('.admin-mobile-toggle')?.addEventListener('click', () => {
-            document.querySelector('.admin-sidebar')?.classList.toggle('open');
+            this.toggleSidebar();
+        });
+
+        // Overlay click to close
+        document.querySelector('.admin-sidebar-overlay')?.addEventListener('click', () => {
+            this.toggleSidebar();
+        });
+
+        // Sidebar link click (close on mobile)
+        document.querySelectorAll('.admin-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    this.toggleSidebar();
+                }
+            });
         });
 
         // Chart period buttons

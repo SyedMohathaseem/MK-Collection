@@ -7,23 +7,35 @@ const MKUI = {
             const productId = card.dataset.productId;
             
             // Wishlist toggle
-            card.querySelector('.wishlist-toggle')?.addEventListener('click', (e) => {
+            card.querySelector('.wishlist-toggle')?.addEventListener('click', async (e) => {
+                const btn = e.currentTarget;
                 e.preventDefault();
+                MKUI.setLoading(btn, true);
+                
+                await new Promise(r => setTimeout(r, 600)); // Simulate processing
+                
                 const product = MKData.getProductById(productId);
                 if (product) {
                     const added = MKWishlist.toggleItem(product);
-                    e.currentTarget.classList.toggle('active', added);
+                    btn.classList.toggle('active', added);
+                    MKUI.setLoading(btn, false);
                     MKApp.showToast(added ? 'Added to wishlist' : 'Removed from wishlist');
                 }
             });
             
             // Quick add to cart
-            card.querySelector('.quick-add')?.addEventListener('click', (e) => {
+            card.querySelector('.quick-add')?.addEventListener('click', async (e) => {
+                const btn = e.currentTarget;
                 e.preventDefault();
+                MKUI.setLoading(btn, true);
+
+                await new Promise(r => setTimeout(r, 600)); // Simulate processing
+
                 const product = MKData.getProductById(productId);
                 if (product) {
                     MKCart.addItem(product, { size: product.sizes[2], color: product.colors[0]?.name });
                     MKApp.updateCartBadge();
+                    MKUI.setLoading(btn, false);
                     MKApp.showToast('Added to bag!', 'success');
                 }
             });
@@ -177,6 +189,18 @@ const MKUI = {
                 selector.dispatchEvent(new CustomEvent('change', { detail: { value: val } }));
             });
         });
+    },
+
+    // Global loading helper
+    setLoading(btn, isLoading) {
+        if (!btn) return;
+        if (isLoading) {
+            btn.classList.add('btn-loading');
+            btn.disabled = true;
+        } else {
+            btn.classList.remove('btn-loading');
+            btn.disabled = false;
+        }
     }
 };
 

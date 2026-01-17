@@ -59,6 +59,7 @@
                 </div>
             </nav>
         </aside>
+        <div class="admin-sidebar-overlay" onclick="MKAdmin.toggleSidebar()"></div>
 
         <!-- Main Content -->
         <main class="admin-main">
@@ -250,13 +251,19 @@
             }
         }
 
-        function saveProduct() {
+        async function saveProduct() {
+            const btn = document.querySelector('button[onclick="saveProduct()"]');
             const name = document.getElementById('product-name').value;
             if (!name) {
                 MKAdmin.showToast('Please enter a product name', 'error');
                 return;
             }
+            
+            MKUI.setLoading(btn, true);
+            await new Promise(r => setTimeout(r, 1000));
+            
             MKAdmin.showToast('Product saved successfully', 'success');
+            MKUI.setLoading(btn, false);
             closeProductModal();
         }
 

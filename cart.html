@@ -191,12 +191,20 @@
             document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
         }
 
-        function applyPromo() {
+        async function applyPromo() {
+            const btn = document.querySelector('button[onclick="applyPromo()"]');
             const code = document.getElementById('promo-input').value.trim().toUpperCase();
-            if (code === 'SAVE10') {
-                MKApp.showToast('Promo code applied! 10% off', 'success');
-            } else if (code) {
-                MKApp.showToast('Invalid promo code', 'error');
+            
+            if (code) {
+                MKUI.setLoading(btn, true);
+                await new Promise(r => setTimeout(r, 600));
+                
+                if (code === 'SAVE10') {
+                    MKApp.showToast('Promo code applied! 10% off', 'success');
+                } else {
+                    MKApp.showToast('Invalid promo code', 'error');
+                }
+                MKUI.setLoading(btn, false);
             }
         }
     </script>

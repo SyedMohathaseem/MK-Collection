@@ -346,10 +346,14 @@
                 wishlistBtn.classList.add('active');
                 wishlistBtn.querySelector('svg').setAttribute('fill', 'currentColor');
             }
-            wishlistBtn.addEventListener('click', () => {
+            wishlistBtn.addEventListener('click', async () => {
+                MKUI.setLoading(wishlistBtn, true);
+                await new Promise(r => setTimeout(r, 600));
+
                 const added = MKWishlist.toggleItem(currentProduct);
                 wishlistBtn.classList.toggle('active', added);
                 wishlistBtn.querySelector('svg').setAttribute('fill', added ? 'currentColor' : 'none');
+                MKUI.setLoading(wishlistBtn, false);
                 MKApp.showToast(added ? 'Added to wishlist' : 'Removed from wishlist');
             });
         }
@@ -374,14 +378,19 @@
             selectedSize = size;
         }
 
-        function addToCart() {
+        async function addToCart() {
             if (!selectedSize) {
                 MKApp.showToast('Please select a size', 'error');
                 return;
             }
+            const btn = document.getElementById('add-to-cart');
+            MKUI.setLoading(btn, true);
+            await new Promise(r => setTimeout(r, 800));
+
             const qty = parseInt(document.querySelector('.quantity-value').value) || 1;
             MKCart.addItem(currentProduct, { size: selectedSize, color: selectedColor?.name, quantity: qty });
             MKApp.updateCartBadge();
+            MKUI.setLoading(btn, false);
             MKApp.openCartDrawer();
             MKApp.showToast('Added to bag!', 'success');
         }
