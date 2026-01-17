@@ -171,9 +171,12 @@
             const params = new URLSearchParams(window.location.search);
             const returnUrl = params.get('return');
             
-            // Admin users only get admin panel - no website access
+            // Admin users only get admin panel in new tab - no website access
             if (user.role === 'admin') {
-                window.location.href = 'admin/index.html';
+                window.open('admin/index.html', '_blank');
+                // Show success message and logout from website session
+                MKApp?.showToast?.('Admin panel opened in new tab', 'success');
+                MKAuth.logout(); // Clear website session - admin only uses admin panel
                 return;
             }
 
