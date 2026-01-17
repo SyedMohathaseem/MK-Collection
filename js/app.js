@@ -30,50 +30,40 @@ const MKApp = {
             const href = link.getAttribute('href');
             if (!href) return;
             
-            // Check for exact path match
-            if (path.endsWith('index.html') || path === '/' || path === '') {
-                // Homepage - no active nav (unless specified)
-                return;
+            // Normalize path for comparison
+            const pageName = path.split('/').pop() || 'index.html';
+            const linkName = href.split('?')[0];
+
+            // 1. Exact Match
+            if (pageName === linkName && !href.includes('?')) {
+                // Exceptional case: Products page link should not be active if it's a specific filter like 'sale'
+                if (linkName === 'products.html' && (params.get('filter') || params.get('cat'))) {
+                    // Skip basic products link if we have filters
+                } else {
+                    link.classList.add('active');
+                    return;
+                }
             }
-            
-            // Products page with filters
-            if (path.includes('products.html')) {
+
+            // 2. Products Page with filters
+            if (pageName === 'products.html' && href.includes('products.html')) {
+                const linkParams = new URLSearchParams(href.split('?')[1] || '');
                 const filter = params.get('filter');
                 const cat = params.get('cat');
-                
-                if (filter === 'new' && href.includes('filter=new')) {
+                const linkFilter = linkParams.get('filter');
+                const linkCat = linkParams.get('cat');
+
+                if (filter && filter === linkFilter) {
                     link.classList.add('active');
-                } else if (filter === 'sale' && href.includes('filter=sale')) {
+                } else if (cat && cat === linkCat) {
                     link.classList.add('active');
-                } else if (!filter && !cat && href === 'products.html') {
-                    link.classList.add('active');
-                } else if (href.includes('products.html') && !href.includes('filter=') && !filter && !cat) {
+                } else if (!filter && !cat && !linkFilter && !linkCat) {
                     link.classList.add('active');
                 }
             }
             
-            // About page
-            if (path.includes('about.html') && href.includes('about.html')) {
-                link.classList.add('active');
-            }
-            
-            // Notifications page
-            if (path.includes('notifications.html') && href.includes('notifications.html')) {
-                link.classList.add('active');
-            }
-            
-            // Account page
-            if (path.includes('account.html') && href.includes('account.html')) {
-                link.classList.add('active');
-            }
-            
-            // Wishlist page
-            if (path.includes('wishlist.html') && href.includes('wishlist.html')) {
-                link.classList.add('active');
-            }
-            
-            // Checkout page
-            if (path.includes('checkout.html') && href.includes('checkout.html')) {
+            // 3. Special case for New Arrivals (index.html)
+            if ((pageName === 'index.html' || pageName === '') && linkName === 'index.html') {
                 link.classList.add('active');
             }
         });
