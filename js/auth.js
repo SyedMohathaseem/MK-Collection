@@ -1,10 +1,42 @@
 /* MK Collection - User Authentication */
+/* SEPARATE SESSIONS: Admin and Customer use different storage keys */
 
 const MKAuth = {
-    storageKey: 'mk_user',
+    // Separate storage keys for admin and customer
+    customerStorageKey: 'mk_customer_session',
+    adminStorageKey: 'mk_admin_session',
     
+    /**
+     * Get the appropriate storage key based on context
+     */
+    _getStorageKey() {
+        // Admin pages use admin session, website uses customer session
+        const isAdminPage = window.location.pathname.includes('/admin/');
+        return isAdminPage ? this.adminStorageKey : this.customerStorageKey;
+    },
+
+    /**
+     * Get current user from appropriate session
+     */
     getUser() {
-        const stored = localStorage.getItem(this.storageKey);
+        const key = this._getStorageKey();
+        const stored = localStorage.getItem(key);
+        return stored ? JSON.parse(stored) : null;
+    },
+
+    /**
+     * Get admin user (for admin panel only)
+     */
+    getAdminUser() {
+        const stored = localStorage.getItem(this.adminStorageKey);
+        return stored ? JSON.parse(stored) : null;
+    },
+
+    /**
+     * Get customer user (for website only)
+     */
+    getCustomerUser() {
+        const stored = localStorage.getItem(this.customerStorageKey);
         return stored ? JSON.parse(stored) : null;
     },
 
@@ -14,11 +46,18 @@ const MKAuth = {
 
     /**
      * Check if user is logged in as a WEBSITE customer (not admin)
-     * Admins should only access admin panel, not customer website
      */
     isWebsiteUser() {
-        const user = this.getUser();
+        const user = this.getCustomerUser();
         return user !== null && user.role !== 'admin';
+    },
+
+    /**
+     * Check if admin is logged in (for admin panel)
+     */
+    isAdminLoggedIn() {
+        const user = this.getAdminUser();
+        return user !== null && user.role === 'admin';
     },
 
     async login(email, password, remember = false) {
@@ -30,9 +69,8 @@ const MKAuth = {
         
         const obfuscatedInput = this._obfuscate(password);
         if (!user || user.password !== obfuscatedInput) {
-            // Check plain password fallback for legacy users if any exist
+            // Check plain password fallback for legacy users
             if (user && user.password === password) {
-                // Auto-fix legacy password to obfuscated
                 user.password = obfuscatedInput;
                 localStorage.setItem('mk_users', JSON.stringify(users));
             } else {
@@ -46,7 +84,7 @@ const MKAuth = {
             localStorage.removeItem('mk_remembered_email');
         }
 
-        localStorage.setItem(this.storageKey, JSON.stringify({
+        const sessionData = {
             id: user.id, 
             email: user.email, 
             firstName: user.firstName,
@@ -54,8 +92,20 @@ const MKAuth = {
             phone: user.phone, 
             role: user.role || 'user',
             addresses: user.addresses || []
-        }));
-        return this.getUser();
+        };
+
+        // IMPORTANT: Save to the CORRECT session based on role
+        if (user.role === 'admin') {
+            // Admin login - save to admin session ONLY
+            localStorage.setItem(this.adminStorageKey, JSON.stringify(sessionData));
+            // Do NOT touch customer session
+        } else {
+            // Customer login - save to customer session ONLY
+            localStorage.setItem(this.customerStorageKey, JSON.stringify(sessionData));
+            // Do NOT touch admin session
+        }
+        
+        return sessionData;
     },
 
     getRememberedEmail() {
@@ -73,7 +123,7 @@ const MKAuth = {
             id: 'user-' + Date.now(), 
             ...data, 
             password: this._obfuscate(data.password),
-            role: data.role || 'user', // Allow role if provided (for setup)
+            role: 'user', // New registrations are always customers
             addresses: [], 
             createdAt: new Date().toISOString() 
         };
@@ -83,10 +133,31 @@ const MKAuth = {
     },
 
     logout() {
-        localStorage.removeItem(this.storageKey);
-        // Do not remove mk_users here!
-        const prefix = window.location.pathname.includes('/admin/') ? '../' : '';
+        const isAdminPage = window.location.pathname.includes('/admin/');
+        
+        // Only remove the session for the current context
+        if (isAdminPage) {
+            localStorage.removeItem(this.adminStorageKey);
+        } else {
+            localStorage.removeItem(this.customerStorageKey);
+        }
+        
+        const prefix = isAdminPage ? '../' : '';
         window.location.href = prefix + 'login.html';
+    },
+
+    /**
+     * Logout admin specifically (used when switching)
+     */
+    logoutAdmin() {
+        localStorage.removeItem(this.adminStorageKey);
+    },
+
+    /**
+     * Logout customer specifically (used when switching)
+     */
+    logoutCustomer() {
+        localStorage.removeItem(this.customerStorageKey);
     },
 
     getStoredUsers() {
@@ -135,8 +206,11 @@ const MKAuth = {
         return true;
     },
 
+    /**
+     * Require admin login - checks admin session specifically
+     */
     requireAdmin() {
-        const user = this.getUser();
+        const user = this.getAdminUser();
         if (!user || user.role !== 'admin') {
             const currentPath = window.location.pathname;
             const prefix = currentPath.includes('/admin/') ? '../' : '';
