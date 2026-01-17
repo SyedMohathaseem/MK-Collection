@@ -98,7 +98,10 @@
     <script src="js/notify.js"></script>
     <script src="js/app.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', loadNotifications);
+        document.addEventListener('DOMContentLoaded', () => {
+            MKApp.init();
+            loadNotifications();
+        });
 
         function loadNotifications() {
             const notifications = MKNotify.getNotifications();

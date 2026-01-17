@@ -18,53 +18,59 @@ const MKApp = {
 
     // Set active nav link based on current page
     initNavActive() {
-        const path = window.location.pathname;
-        const search = window.location.search;
-        const params = new URLSearchParams(search);
+        const currentPath = window.location.pathname;
+        const currentParams = new URLSearchParams(window.location.search);
         
-        // Get all nav links
+        // Select all navigation links (Desktop and Mobile)
         const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
         
         navLinks.forEach(link => {
             link.classList.remove('active');
-            const href = link.getAttribute('href');
-            if (!href) return;
             
-            // Normalize path for comparison
-            const pageName = path.split('/').pop() || 'index.html';
-            const linkName = href.split('?')[0];
+            try {
+                const linkUrl = new URL(link.href, window.location.origin);
+                const linkPath = linkUrl.pathname;
+                const linkParams = linkUrl.searchParams;
 
-            // 1. Exact Match
-            if (pageName === linkName && !href.includes('?')) {
-                // Exceptional case: Products page link should not be active if it's a specific filter like 'sale'
-                if (linkName === 'products.html' && (params.get('filter') || params.get('cat'))) {
-                    // Skip basic products link if we have filters
+                const isHomeCurrent = currentPath === '/' || currentPath.endsWith('index.html');
+                const isHomeLink = linkPath === '/' || linkPath.endsWith('index.html');
+                const isProductsPath = currentPath.includes('products.html');
+                
+                let isActive = false;
+
+                // Handle Home / New Arrivals
+                if (isHomeCurrent) {
+                    // Highlight "New Arrivals" on home page
+                    if (link.textContent.trim() === 'New Arrivals') {
+                        isActive = true;
+                    }
+                } else if (isProductsPath) {
+                    const currentFilter = currentParams.get('filter');
+                    const currentCat = currentParams.get('cat');
+                    const linkFilter = linkParams.get('filter');
+                    const linkCat = linkParams.get('cat');
+
+                    // Match filter or category
+                    if (currentFilter && currentFilter === linkFilter) {
+                        isActive = true;
+                    } else if (currentCat && currentCat === linkCat) {
+                        isActive = true;
+                    } else if (!currentFilter && !currentCat && linkPath.endsWith('products.html') && !linkUrl.search) {
+                        // Generic products link
+                        isActive = true;
+                    }
                 } else {
-                    link.classList.add('active');
-                    return;
+                    // Exact page match for other pages (About, Account, etc.)
+                    const pageName = currentPath.split('/').pop();
+                    if (pageName && linkPath.endsWith(pageName) && !linkUrl.search) {
+                        isActive = true;
+                    }
                 }
-            }
 
-            // 2. Products Page with filters
-            if (pageName === 'products.html' && href.includes('products.html')) {
-                const linkParams = new URLSearchParams(href.split('?')[1] || '');
-                const filter = params.get('filter');
-                const cat = params.get('cat');
-                const linkFilter = linkParams.get('filter');
-                const linkCat = linkParams.get('cat');
-
-                if (filter && filter === linkFilter) {
-                    link.classList.add('active');
-                } else if (cat && cat === linkCat) {
-                    link.classList.add('active');
-                } else if (!filter && !cat && !linkFilter && !linkCat) {
-                    link.classList.add('active');
-                }
-            }
-            
-            // 3. Special case for New Arrivals (index.html)
-            if ((pageName === 'index.html' || pageName === '') && linkName === 'index.html') {
-                link.classList.add('active');
+                if (isActive) link.classList.add('active');
+            } catch (e) {
+                const href = link.getAttribute('href');
+                if (href && currentPath.includes(href)) link.classList.add('active');
             }
         });
     },

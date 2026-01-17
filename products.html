@@ -270,6 +270,7 @@
         let displayedProducts = [];
 
         document.addEventListener('DOMContentLoaded', () => {
+            MKApp.init();
             parseURLParams();
             renderProducts();
             bindFilterEvents();

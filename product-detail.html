@@ -277,6 +277,7 @@
         let selectedSize = null;
 
         document.addEventListener('DOMContentLoaded', () => {
+            MKApp.init();
             const params = new URLSearchParams(window.location.search);
             const productId = params.get('id') || 'prod-001';
             loadProduct(productId);
