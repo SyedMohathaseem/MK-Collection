@@ -198,6 +198,7 @@
     <script src="../js/store.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/ui.js"></script>
+    <script src="../js/skeleton.js"></script>
     <script src="js/admin.js"></script>
     <script>
         // Production Security: Require Admin
@@ -208,7 +209,22 @@
         let editingProductId = null;
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderInventoryTable();
+            // Show skeleton loading first
+            const container = document.getElementById('inventory-table');
+            if (container) {
+                let skeletonHtml = '<table><thead><tr><th>Product</th><th>SKU</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+                for (let i = 0; i < 5; i++) {
+                    skeletonHtml += MKSkeleton.tableRow(10);
+                }
+                skeletonHtml += '</tbody></table>';
+                container.innerHTML = skeletonHtml;
+            }
+            
+            // Load actual data after brief delay
+            setTimeout(() => {
+                renderInventoryTable();
+            }, 400);
+            
             document.getElementById('status-filter').addEventListener('change', renderInventoryTable);
             document.getElementById('search-input').addEventListener('input', debounce(renderInventoryTable, 300));
         });

@@ -201,6 +201,7 @@
     <script src="../js/notify.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/ui.js"></script>
+    <script src="../js/skeleton.js"></script>
     <script src="js/admin.js"></script>
     <script>
         // Production Security: Require Admin
@@ -209,7 +210,16 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            MKAdmin.renderOrdersTable('orders-table');
+            // Show skeleton loading for orders table
+            const ordersTable = document.getElementById('orders-table');
+            if (ordersTable) {
+                MKSkeleton.show(ordersTable, 'order', 5);
+            }
+            
+            // Load actual data after brief delay
+            setTimeout(() => {
+                MKAdmin.renderOrdersTable('orders-table');
+            }, 400);
 
             // Sales Chart
             const salesCtx = document.getElementById('salesChart')?.getContext('2d');

@@ -147,13 +147,24 @@
     <script src="../js/data.js"></script>
     <script src="../js/store.js"></script>
     <script src="../js/notify.js"></script>
+    <script src="../js/skeleton.js"></script>
     <script src="js/admin.js"></script>
     <script>
         const ADMIN_NOTIFICATION_KEY = 'mk_admin_notifications';
         let currentFilter = 'all';
 
         document.addEventListener('DOMContentLoaded', () => {
-            loadNotifications();
+            // Show skeleton loading first
+            const container = document.getElementById('notifications-list');
+            if (container) {
+                MKSkeleton.show(container, 'notification', 5);
+            }
+            
+            // Load actual data after brief delay
+            setTimeout(() => {
+                loadNotifications();
+            }, 400);
+            
             setupFilters();
             
             // Listen for new orders
