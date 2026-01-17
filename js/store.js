@@ -14,29 +14,54 @@ const MKStore = {
 
     // Initialize store with default data
     init() {
-        // Initialize products if not exists
-        if (!localStorage.getItem(this.KEYS.PRODUCTS)) {
-            this.saveProducts(MKData.products);
+        try {
+            // Initialize products if not exists
+            if (!this.safeGet(this.KEYS.PRODUCTS)) {
+                this.saveProducts(MKData.products);
+            }
+            // Initialize orders if not exists
+            if (!this.safeGet(this.KEYS.ORDERS)) {
+                this.saveOrders(this.getDefaultOrders());
+            }
+            // Initialize inventory if not exists
+            if (!this.safeGet(this.KEYS.INVENTORY)) {
+                this.saveInventory(this.getDefaultInventory());
+            }
+        } catch (e) {
+            console.error('MKStore Init Error:', e);
         }
-        // Initialize orders if not exists
-        if (!localStorage.getItem(this.KEYS.ORDERS)) {
-            this.saveOrders(this.getDefaultOrders());
+    },
+
+    // ========== SAFE STORAGE ==========
+    safeGet(key) {
+        try {
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : null;
+        } catch (e) {
+            console.error(`Error reading ${key} from storage:`, e);
+            return null;
         }
-        // Initialize inventory if not exists
-        if (!localStorage.getItem(this.KEYS.INVENTORY)) {
-            this.saveInventory(this.getDefaultInventory());
+    },
+
+    safeSet(key, data) {
+        try {
+            localStorage.setItem(key, JSON.stringify(data));
+            return true;
+        } catch (e) {
+            console.error(`Error saving ${key} to storage:`, e);
+            return false;
         }
     },
 
     // ========== PRODUCTS ==========
     getProducts() {
-        const stored = localStorage.getItem(this.KEYS.PRODUCTS);
-        return stored ? JSON.parse(stored) : MKData.products;
+        return this.safeGet(this.KEYS.PRODUCTS) || MKData.products;
     },
 
     saveProducts(products) {
-        localStorage.setItem(this.KEYS.PRODUCTS, JSON.stringify(products));
-        this.triggerSync('products');
+        if (this.safeSet(this.KEYS.PRODUCTS, products)) {
+            this.triggerSync('products');
+        }
     },
 
     addProduct(product) {
@@ -70,17 +95,42 @@ const MKStore = {
 
     // ========== ORDERS ==========
     getOrders() {
-        const stored = localStorage.getItem(this.KEYS.ORDERS);
-        return stored ? JSON.parse(stored) : [];
+        return this.safeGet(this.KEYS.ORDERS) || [];
     },
 
     saveOrders(orders) {
-        localStorage.setItem(this.KEYS.ORDERS, JSON.stringify(orders));
-        this.triggerSync('orders');
+        if (this.safeSet(this.KEYS.ORDERS, orders)) {
+            this.triggerSync('orders');
+        }
+    },
+
+    // Verify stock availability for all items in an order
+    checkStockAvailability(items) {
+        const inventory = this.getInventory();
+        for (const item of items) {
+            const invItem = inventory.find(i => i.id === item.productId);
+            if (!invItem) return { available: false, error: `Product ${item.name} not found` };
+            
+            // Check specific size stock if available
+            if (item.size && invItem.sizeStocks) {
+                const sizeStock = invItem.sizeStocks[item.size] || 0;
+                if (sizeStock < item.quantity) {
+                    return { available: false, error: `Insufficient stock for ${item.name} (Size: ${item.size})` };
+                }
+            } else if (invItem.stock < item.quantity) {
+                return { available: false, error: `Insufficient stock for ${item.name}` };
+            }
+        }
+        return { available: true };
     },
 
     addOrder(orderData) {
         const orders = this.getOrders();
+        
+        // Final stock check before commitment
+        const stockCheck = this.checkStockAvailability(orderData.itemDetails || []);
+        if (!stockCheck.available) throw new Error(stockCheck.error);
+
         const order = {
             id: 'MK-' + new Date().getFullYear() + '-' + String(orders.length + 1).padStart(3, '0'),
             ...orderData,
@@ -91,10 +141,10 @@ const MKStore = {
         orders.unshift(order);
         this.saveOrders(orders);
         
-        // Decrease inventory
-        if (orderData.items) {
-            orderData.items.forEach(item => {
-                this.decreaseStock(item.productId, item.quantity);
+        // Decrease inventory with size tracking
+        if (orderData.itemDetails) {
+            orderData.itemDetails.forEach(item => {
+                this.decreaseStock(item.productId, item.quantity, item.size);
             });
         }
         
@@ -119,13 +169,42 @@ const MKStore = {
 
     // ========== INVENTORY ==========
     getInventory() {
-        const stored = localStorage.getItem(this.KEYS.INVENTORY);
-        return stored ? JSON.parse(stored) : [];
+        return this.safeGet(this.KEYS.INVENTORY) || [];
     },
 
     saveInventory(inventory) {
-        localStorage.setItem(this.KEYS.INVENTORY, JSON.stringify(inventory));
-        this.triggerSync('inventory');
+        if (this.safeSet(this.KEYS.INVENTORY, inventory)) {
+            this.triggerSync('inventory');
+        }
+    },
+
+    restoreStock(orderId) {
+        const order = this.getOrderById(orderId);
+        if (!order || order.status === 'cancelled') return false;
+        
+        if (order.itemDetails) {
+            order.itemDetails.forEach(item => {
+                this.increaseStock(item.productId, item.quantity, item.size);
+            });
+        }
+        return true;
+    },
+
+    increaseStock(productId, quantity, size = null) {
+        const inventory = this.getInventory();
+        const item = inventory.find(i => i.id === productId);
+        if (item) {
+            item.stock += quantity;
+            if (size && item.sizeStocks) {
+                item.sizeStocks[size] = (item.sizeStocks[size] || 0) + quantity;
+            }
+            item.status = item.stock < 10 ? 'low-stock' : 'in-stock';
+            item.lastUpdated = new Date().toISOString().split('T')[0];
+            this.saveInventory(inventory);
+            this.updateProduct(productId, { stock: item.sizeStocks });
+            return item;
+        }
+        return null;
     },
 
     updateStock(productId, sizeStocks) {
@@ -146,14 +225,20 @@ const MKStore = {
         return null;
     },
 
-    decreaseStock(productId, quantity = 1) {
+    decreaseStock(productId, quantity = 1, size = null) {
         const inventory = this.getInventory();
         const item = inventory.find(i => i.id === productId);
         if (item && item.stock >= quantity) {
             item.stock -= quantity;
+            if (size && item.sizeStocks) {
+                item.sizeStocks[size] = Math.max(0, (item.sizeStocks[size] || 0) - quantity);
+            }
             item.status = item.stock === 0 ? 'out-of-stock' : item.stock < 10 ? 'low-stock' : 'in-stock';
             item.lastUpdated = new Date().toISOString().split('T')[0];
             this.saveInventory(inventory);
+            
+            // Sync back to main product data
+            this.updateProduct(productId, { stock: item.sizeStocks });
             return item;
         }
         return null;
@@ -218,17 +303,23 @@ const MKStore = {
     getStats() {
         const orders = this.getOrders();
         const inventory = this.getInventory();
-        const today = new Date().toISOString().split('T')[0];
+        const now = new Date();
+        const today = now.toISOString().split('T')[0];
+        
+        // Month stats
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
         return {
             totalOrders: orders.length,
             todayOrders: orders.filter(o => o.date === today).length,
+            monthOrders: orders.filter(o => new Date(o.createdAt) >= startOfMonth).length,
             pendingOrders: orders.filter(o => o.status === 'pending').length,
             processingOrders: orders.filter(o => o.status === 'processing').length,
             shippedOrders: orders.filter(o => o.status === 'shipped').length,
             deliveredOrders: orders.filter(o => o.status === 'delivered').length,
-            totalRevenue: orders.reduce((sum, o) => sum + o.total, 0),
-            todayRevenue: orders.filter(o => o.date === today).reduce((sum, o) => sum + o.total, 0),
+            totalRevenue: orders.reduce((sum, o) => sum + (o.status !== 'cancelled' ? o.total : 0), 0),
+            todayRevenue: orders.filter(o => o.date === today && o.status !== 'cancelled').reduce((sum, o) => sum + o.total, 0),
+            monthRevenue: orders.filter(o => new Date(o.createdAt) >= startOfMonth && o.status !== 'cancelled').reduce((sum, o) => sum + o.total, 0),
             totalProducts: inventory.length,
             inStock: inventory.filter(i => i.status === 'in-stock').length,
             lowStock: inventory.filter(i => i.status === 'low-stock').length,

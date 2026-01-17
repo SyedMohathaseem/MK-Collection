@@ -182,9 +182,15 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/store.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/ui.js"></script>
     <script src="js/admin.js"></script>
     <script>
+        // Production Security: Require Admin
+        if (typeof MKAuth !== 'undefined') {
+            MKAuth.requireAdmin();
+        }
+
         async function saveStoreSettings() {
             const btn = document.querySelector('button[onclick="saveStoreSettings()"]');
             const storeName = document.getElementById('store-name').value;

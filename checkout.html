@@ -242,7 +242,11 @@
         }
 
         async function placeOrder() {
-            // Basic validation
+            // Production Validation: Regex for better reliability
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^\+?[\d\s-]{10,}$/;
+            const zipRegex = /^\d{5}(-\d{4})?$/;
+
             const email = document.getElementById('checkout-email').value;
             const firstName = document.getElementById('first-name').value;
             const lastName = document.getElementById('last-name').value;
@@ -257,8 +261,40 @@
                 return;
             }
 
+            if (!emailRegex.test(email)) {
+                MKApp.showToast('Please enter a valid email address', 'error');
+                return;
+            }
+
+            if (phone && !phoneRegex.test(phone)) {
+                MKApp.showToast('Please enter a valid phone number', 'error');
+                return;
+            }
+
+            if (!zipRegex.test(zip)) {
+                MKApp.showToast('Please enter a valid ZIP code (5 digits)', 'error');
+                return;
+            }
+
             const btn = document.querySelector('button[onclick="placeOrder()"]');
             MKUI.setLoading(btn, true);
+
+            // Production Guard: Pre-Order Stock Verification
+            const cartItems = MKCart.getItems();
+            if (typeof MKStore !== 'undefined') {
+                const stockCheck = MKStore.checkStockAvailability(cartItems.map(item => ({
+                    productId: item.productId,
+                    name: item.name,
+                    size: item.size,
+                    quantity: item.quantity
+                })));
+
+                if (!stockCheck.available) {
+                    MKApp.showToast(stockCheck.error, 'error');
+                    MKUI.setLoading(btn, false);
+                    return;
+                }
+            }
 
             // Simulate order placement
             MKApp.showToast('Processing your order...', 'default');
@@ -266,7 +302,6 @@
             await new Promise(r => setTimeout(r, 2000));
 
             // Create order in shared store (syncs to admin)
-            const cartItems = MKCart.getItems();
             const subtotal = MKCart.getSubtotal();
             const shipping = MKCart.getShipping();
             const tax = MKCart.getTax();
@@ -294,25 +329,31 @@
 
             // Save order to MKStore (syncs with admin)
             let orderId = 'MK' + Date.now().toString().slice(-8);
-            if (typeof MKStore !== 'undefined') {
-                const order = MKStore.addOrder(orderData);
-                orderId = order.id;
-            }
+            try {
+                if (typeof MKStore !== 'undefined') {
+                    const order = MKStore.addOrder(orderData);
+                    orderId = order.id;
+                }
 
-            MKCart.clear();
-            MKApp.updateCartBadge();
-            
-            // Show success
-            document.querySelector('.checkout-grid').innerHTML = `
-                <div style="text-align:center;padding:var(--space-16);grid-column:1/-1">
-                    <div style="width:80px;height:80px;margin:0 auto var(--space-6);background:var(--color-success);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="40" height="40"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                MKCart.clear();
+                MKApp.updateCartBadge();
+                
+                // Show success
+                document.querySelector('.checkout-grid').innerHTML = `
+                    <div style="text-align:center;padding:var(--space-16);grid-column:1/-1">
+                        <div style="width:80px;height:80px;margin:0 auto var(--space-6);background:var(--color-success);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="40" height="40"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <h2>Thank You for Your Order!</h2>
+                        <p style="color:var(--color-gray-600);margin:var(--space-4) 0 var(--space-8)">Order #${orderId} has been placed successfully.<br>You will receive a confirmation email shortly.</p>
+                        <a href="index.html" class="btn btn-primary btn-lg">Continue Shopping</a>
                     </div>
-                    <h2>Thank You for Your Order!</h2>
-                    <p style="color:var(--color-gray-600);margin:var(--space-4) 0 var(--space-8)">Order #${orderId} has been placed successfully.<br>You will receive a confirmation email shortly.</p>
-                    <a href="index.html" class="btn btn-primary btn-lg">Continue Shopping</a>
-                </div>
-            `;
+                `;
+            } catch (e) {
+                MKApp.showToast(e.message, 'error');
+            } finally {
+                MKUI.setLoading(btn, false);
+            }
         }
     </script>
 </body>

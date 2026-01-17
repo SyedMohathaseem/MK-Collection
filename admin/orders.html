@@ -154,9 +154,15 @@
     <script src="../js/data.js"></script>
     <script src="../js/store.js"></script>
     <script src="../js/notify.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/ui.js"></script>
     <script src="js/admin.js"></script>
     <script>
+        // Production Security: Require Admin
+        if (typeof MKAuth !== 'undefined') {
+            MKAuth.requireAdmin();
+        }
+
         let selectedOrderId = null;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -270,13 +276,37 @@
             
             if (order) {
                 MKUI.setLoading(btn, true);
-                await new Promise(r => setTimeout(r, 800));
                 
-                order.status = newStatus;
-                renderOrdersTable();
-                MKAdmin.showToast(`Order status updated to ${newStatus}`, 'success');
-                MKUI.setLoading(btn, false);
-                closeOrderModal();
+                try {
+                    // Production Logic: Restore stock if cancelled
+                    if (newStatus === 'cancelled' && order.status !== 'cancelled') {
+                        const restored = MKStore.restoreStock(selectedOrderId);
+                        if (!restored) {
+                            MKAdmin.showToast('Failed to restore inventory', 'error');
+                            MKUI.setLoading(btn, false);
+                            return;
+                        }
+                    }
+
+                    await new Promise(r => setTimeout(r, 800));
+                    
+                    order.status = newStatus;
+                    // Update in store persistence
+                    const allOrders = MKStore.getOrders();
+                    const storeIdx = allOrders.findIndex(o => o.id === selectedOrderId);
+                    if (storeIdx !== -1) {
+                        allOrders[storeIdx].status = newStatus;
+                        MKStore.saveOrders(allOrders);
+                    }
+
+                    renderOrdersTable();
+                    MKAdmin.showToast(`Order status updated to ${newStatus}`, 'success');
+                    closeOrderModal();
+                } catch (e) {
+                    MKAdmin.showToast(e.message, 'error');
+                } finally {
+                    MKUI.setLoading(btn, false);
+                }
             }
         }
 

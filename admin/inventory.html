@@ -196,9 +196,15 @@
 
     <script src="../js/data.js"></script>
     <script src="../js/store.js"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/ui.js"></script>
     <script src="js/admin.js"></script>
     <script>
+        // Production Security: Require Admin
+        if (typeof MKAuth !== 'undefined') {
+            MKAuth.requireAdmin();
+        }
+
         let editingProductId = null;
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -245,11 +251,11 @@
                             <tr>
                                 <td><strong>${item.name}</strong></td>
                                 <td><code style="font-size:var(--text-sm)">${item.sku}</code></td>
-                                <td>${Math.floor(item.stock * 0.1)}</td>
-                                <td>${Math.floor(item.stock * 0.2)}</td>
-                                <td>${Math.floor(item.stock * 0.3)}</td>
-                                <td>${Math.floor(item.stock * 0.25)}</td>
-                                <td>${Math.floor(item.stock * 0.15)}</td>
+                                <td>${item.sizeStocks ? (item.sizeStocks['XS'] || 0) : 0}</td>
+                                <td>${item.sizeStocks ? (item.sizeStocks['S'] || 0) : 0}</td>
+                                <td>${item.sizeStocks ? (item.sizeStocks['M'] || 0) : 0}</td>
+                                <td>${item.sizeStocks ? (item.sizeStocks['L'] || 0) : 0}</td>
+                                <td>${item.sizeStocks ? (item.sizeStocks['XL'] || 0) : 0}</td>
                                 <td><strong>${item.stock}</strong></td>
                                 <td><span class="status-badge ${item.status}">${item.status.replace('-', ' ')}</span></td>
                                 <td>
