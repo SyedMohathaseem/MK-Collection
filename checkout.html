@@ -193,9 +193,9 @@
             }
             renderOrderSummary();
 
-            // Pre-fill if logged in
-            const user = MKAuth.getUser();
-            if (user) {
+            // Pre-fill only for website customers (not admin users)
+            if (MKAuth.isWebsiteUser()) {
+                const user = MKAuth.getUser();
                 document.getElementById('checkout-email').value = user.email;
                 document.getElementById('first-name').value = user.firstName || '';
                 document.getElementById('last-name').value = user.lastName || '';
