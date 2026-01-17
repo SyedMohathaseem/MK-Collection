@@ -209,16 +209,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Show skeleton while loading orders table
-            const ordersTable = document.getElementById('orders-table');
-            if (ordersTable && typeof MKUI !== 'undefined') {
-                MKUI.showSkeleton(ordersTable, 'table', { rows: 4, columns: 5 });
-            }
-            
-            // Simulate loading delay for smooth UX
-            setTimeout(() => {
-                MKAdmin.renderOrdersTable('orders-table');
-            }, 400);
+            MKAdmin.renderOrdersTable('orders-table');
 
             // Sales Chart
             const salesCtx = document.getElementById('salesChart')?.getContext('2d');

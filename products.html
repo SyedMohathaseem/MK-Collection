@@ -264,17 +264,9 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             MKApp.init();
-            
-            // Show skeleton while loading
-            const grid = document.getElementById('products-grid');
-            MKUI.showSkeleton(grid, 'products', { count: 8 });
-            
-            // Simulate loading delay for smooth UX
-            setTimeout(() => {
-                parseURLParams();
-                renderProducts();
-                bindFilterEvents();
-            }, 500);
+            parseURLParams();
+            renderProducts();
+            bindFilterEvents();
         });
 
         function parseURLParams() {
