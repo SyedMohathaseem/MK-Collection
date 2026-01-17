@@ -8,8 +8,11 @@ const MKNotify = {
     KEYS: {
         CUSTOMER: 'mk_customer_notifications',
         ADMIN: 'mk_admin_notifications',
-        LAST_CHECK: 'mk_last_notification_check'
+        LAST_CHECK: 'mk_last_notification_check',
+        STATUS_CACHE: 'mk_order_status_cache'
     },
+    
+    orderStatusCache: {},
 
     // Sound effect (using Web Audio API for cross-browser support)
     audioContext: null,
@@ -17,10 +20,23 @@ const MKNotify = {
     // Initialize notification system
     init(isAdmin = false) {
         this.isAdmin = isAdmin;
+        this.loadStatusCache();
         this.requestPermission();
         this.initAudio();
         this.startWatching();
         this.createPopupContainer();
+        this.updateBadge();
+    },
+
+    loadStatusCache() {
+        const stored = localStorage.getItem(this.KEYS.STATUS_CACHE);
+        if (stored) {
+            this.orderStatusCache = JSON.parse(stored);
+        }
+    },
+
+    saveStatusCache() {
+        localStorage.setItem(this.KEYS.STATUS_CACHE, JSON.stringify(this.orderStatusCache));
     },
 
     // Request browser notification permission
@@ -238,6 +254,22 @@ const MKNotify = {
             notifications.length = 50;
         }
         localStorage.setItem(key, JSON.stringify(notifications));
+        this.updateBadge();
+    },
+
+    updateBadge() {
+        const notifications = this.getNotifications();
+        const unreadCount = notifications.filter(n => !n.read).length;
+        const badge = document.querySelector('.notification-badge');
+        
+        if (badge) {
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
     },
 
     // Get notifications from storage
@@ -251,21 +283,53 @@ const MKNotify = {
     startWatching() {
         // Cross-tab sync
         window.addEventListener('storage', (e) => {
-            if (e.key === 'mk_orders' && this.isAdmin) {
-                // New order placed - notify admin
+            if (e.key === 'mk_orders') {
                 const newOrders = JSON.parse(e.newValue || '[]');
                 const oldOrders = JSON.parse(e.oldValue || '[]');
-                
-                if (newOrders.length > oldOrders.length) {
-                    const latestOrder = newOrders[0];
-                    this.send({
-                        type: 'order',
-                        title: '🛍️ New Order Received!',
-                        message: `Order #${latestOrder.id} from ${latestOrder.customer} - $${latestOrder.total?.toFixed(2) || '0.00'}`
+
+                if (this.isAdmin) {
+                    // New order placed - notify admin
+                    if (newOrders.length > oldOrders.length) {
+                        const latestOrder = newOrders[0];
+                        this.send({
+                            type: 'order',
+                            title: '🛍️ New Order Received!',
+                            message: `Order #${latestOrder.id} from ${latestOrder.customer} - $${latestOrder.total?.toFixed(2) || '0.00'}`
+                        });
+                    }
+                } else if (typeof MKAuth !== 'undefined' && MKAuth.isLoggedIn()) {
+                    // Order status updated - notify customer
+                    const user = MKAuth.getUser();
+                    const userOrders = newOrders.filter(o => o.email.toLowerCase() === user.email.toLowerCase());
+                    
+                    userOrders.forEach(order => {
+                        const lastStatus = this.orderStatusCache[order.id];
+                        if (lastStatus && lastStatus !== order.status) {
+                            this.send({
+                                type: 'order',
+                                title: '📦 Order Status Updated',
+                                message: `Your order #${order.id} is now ${order.status.toUpperCase()}.`
+                            });
+                        }
+                        // Update cache
+                        this.orderStatusCache[order.id] = order.status;
                     });
+                    this.saveStatusCache();
                 }
             }
         });
+
+        // Initial cache population for customers to prevent notifications on first load
+        if (!this.isAdmin && typeof MKAuth !== 'undefined' && MKAuth.isLoggedIn()) {
+            const user = MKAuth.getUser();
+            const orders = JSON.parse(localStorage.getItem('mk_orders') || '[]');
+            orders.filter(o => o.email.toLowerCase() === user.email.toLowerCase()).forEach(order => {
+                if (!this.orderStatusCache[order.id]) {
+                    this.orderStatusCache[order.id] = order.status;
+                }
+            });
+            this.saveStatusCache();
+        }
 
         // Check for updates periodically
         if (this.isAdmin) {

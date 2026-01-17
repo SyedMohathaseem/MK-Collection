@@ -18,9 +18,9 @@ const MKAdmin = {
 
     // Initialize dashboard
     init() {
-        this.bindEvents();
-        this.updateStats();
-        this.setupSync();
+        this.initSidebar();
+        this.initCharts();
+        this.renderOrdersTable();
     },
 
     toggleSidebar() {
