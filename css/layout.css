@@ -556,11 +556,14 @@ body {
     position: sticky;
     top: calc(var(--header-height) + var(--space-6));
     height: fit-content;
+    max-width: 280px;
     background: var(--color-white);
     border: 1px solid var(--color-gray-200);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     z-index: 10;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* ----------------------------------------

@@ -514,16 +514,22 @@
 .price-range {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--space-2);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .price-input {
     flex: 1;
+    min-width: 0;
+    /* Prevents flex items from overflowing */
+    max-width: 100px;
     padding: var(--space-2);
     text-align: center;
     border: 1px solid var(--color-gray-300);
     border-radius: var(--radius-md);
     font-size: var(--text-sm);
+    box-sizing: border-box;
 }
 
 /* ----------------------------------------
