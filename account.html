@@ -156,7 +156,8 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             MKApp.init();
-            if (!MKAuth.isLoggedIn()) {
+            // Use isWebsiteUser to exclude admins - they should use admin panel only
+            if (!MKAuth.isWebsiteUser()) {
                 window.location.href = 'login.html';
                 return;
             }

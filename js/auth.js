@@ -12,6 +12,15 @@ const MKAuth = {
         return this.getUser() !== null;
     },
 
+    /**
+     * Check if user is logged in as a WEBSITE customer (not admin)
+     * Admins should only access admin panel, not customer website
+     */
+    isWebsiteUser() {
+        const user = this.getUser();
+        return user !== null && user.role !== 'admin';
+    },
+
     async login(email, password, remember = false) {
         await new Promise(r => setTimeout(r, 500));
         if (!email || !password) throw new Error('Please enter email and password');
