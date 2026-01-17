@@ -21,7 +21,6 @@ const MKApp = {
         const currentPath = window.location.pathname;
         const currentParams = new URLSearchParams(window.location.search);
         
-        // Select all navigation links (Desktop and Mobile)
         const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
         
         navLinks.forEach(link => {
@@ -33,34 +32,38 @@ const MKApp = {
                 const linkParams = linkUrl.searchParams;
 
                 const isHomeCurrent = currentPath === '/' || currentPath.endsWith('index.html');
-                const isHomeLink = linkPath === '/' || linkPath.endsWith('index.html');
                 const isProductsPath = currentPath.includes('products.html');
                 
                 let isActive = false;
+                const linkText = link.textContent.trim().toLowerCase();
 
-                // Handle Home / New Arrivals
                 if (isHomeCurrent) {
-                    // Highlight "New Arrivals" on home page
-                    if (link.textContent.trim() === 'New Arrivals') {
-                        isActive = true;
-                    }
+                    if (linkText === 'new arrivals') isActive = true;
                 } else if (isProductsPath) {
                     const currentFilter = currentParams.get('filter');
                     const currentCat = currentParams.get('cat');
+                    const currentColl = currentParams.get('collection');
+                    
                     const linkFilter = linkParams.get('filter');
                     const linkCat = linkParams.get('cat');
+                    const linkColl = linkParams.get('collection');
 
-                    // Match filter or category
-                    if (currentFilter && currentFilter === linkFilter) {
-                        isActive = true;
-                    } else if (currentCat && currentCat === linkCat) {
-                        isActive = true;
-                    } else if (!currentFilter && !currentCat && linkPath.endsWith('products.html') && !linkUrl.search) {
-                        // Generic products link
-                        isActive = true;
+                    // Priority 1: Direct link match (specific sub-links)
+                    if (linkFilter && currentFilter === linkFilter) isActive = true;
+                    else if (linkCat && currentCat === linkCat) isActive = true;
+                    else if (linkColl && currentColl === linkColl) isActive = true;
+                    
+                    // Priority 2: Parent link logic
+                    else if (!linkUrl.search || linkUrl.search === '') {
+                        if (currentCat && linkText === 'categories') isActive = true;
+                        else if (currentColl && linkText === 'collections') isActive = true;
+                        else if (currentFilter === 'sale' && linkText === 'sale') isActive = true;
+                        else if (!currentCat && !currentColl && !currentFilter && linkPath.endsWith('products.html')) {
+                            // If on "All Products", we don't highlight both Categories and Collections.
+                            // We can either highlight none or the first generic products link found.
+                        }
                     }
                 } else {
-                    // Exact page match for other pages (About, Account, etc.)
                     const pageName = currentPath.split('/').pop();
                     if (pageName && linkPath.endsWith(pageName) && !linkUrl.search) {
                         isActive = true;
