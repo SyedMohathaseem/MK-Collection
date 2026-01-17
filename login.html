@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MK Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">MK<span>Collection</span></a>
+        </div>
+    </header>
+
+    <main class="main" style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - var(--header-height))">
+        <div class="container" style="max-width:450px">
+            <div class="card" style="padding:var(--space-8)">
+                <!-- Tabs -->
+                <div class="tabs" style="margin-bottom:var(--space-8)">
+                    <button class="tab active" data-tab="login">Sign In</button>
+                    <button class="tab" data-tab="register">Create Account</button>
+                </div>
+
+                <!-- Login Form -->
+                <div class="tab-content active" data-tab-content="login">
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" id="login-email" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" id="login-password" required placeholder="••••••••">
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6)">
+                            <label class="filter-option" style="font-size:var(--text-sm)">
+                                <input type="checkbox"> Remember me
+                            </label>
+                            <a href="#" style="font-size:var(--text-sm);color:var(--color-blush-pink)">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full btn-lg">Sign In</button>
+                    </form>
+
+                    <div style="margin-top:var(--space-6);text-align:center">
+                        <p style="font-size:var(--text-sm);color:var(--color-gray-500);margin-bottom:var(--space-4)">Demo credentials: demo@mk.com / demo123</p>
+                    </div>
+                </div>
+
+                <!-- Register Form -->
+                <div class="tab-content" data-tab-content="register">
+                    <form id="register-form" onsubmit="handleRegister(event)">
+                        <div class="checkout-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-input" id="reg-firstname" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-input" id="reg-lastname" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" id="reg-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-input" id="reg-password" required minlength="6">
+                            <p class="form-hint">At least 6 characters</p>
+                        </div>
+                        <label class="filter-option" style="font-size:var(--text-sm);margin-bottom:var(--space-6)">
+                            <input type="checkbox" required> I agree to the Terms of Service and Privacy Policy
+                        </label>
+                        <button type="submit" class="btn btn-primary btn-full btn-lg">Create Account</button>
+                    </form>
+                </div>
+            </div>
+
+            <p style="text-align:center;margin-top:var(--space-6);font-size:var(--text-sm);color:var(--color-gray-500)">
+                <a href="index.html" style="color:var(--color-blush-pink)">← Back to shopping</a>
+            </p>
+        </div>
+    </main>
+
+    <div class="toast-container"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if already logged in
+            if (MKAuth.isLoggedIn()) {
+                redirectAfterLogin();
+            }
+
+            // Tab switching
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.querySelector(`[data-tab-content="${tab.dataset.tab}"]`).classList.add('active');
+                });
+            });
+        });
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                await MKAuth.login(email, password);
+                MKApp.showToast('Welcome back!', 'success');
+                setTimeout(redirectAfterLogin, 1000);
+            } catch (error) {
+                MKApp.showToast(error.message, 'error');
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const data = {
+                firstName: document.getElementById('reg-firstname').value,
+                lastName: document.getElementById('reg-lastname').value,
+                email: document.getElementById('reg-email').value,
+                password: document.getElementById('reg-password').value
+            };
+
+            try {
+                await MKAuth.register(data);
+                MKApp.showToast('Account created successfully!', 'success');
+                setTimeout(redirectAfterLogin, 1000);
+            } catch (error) {
+                MKApp.showToast(error.message, 'error');
+            }
+        }
+
+        function redirectAfterLogin() {
+            const params = new URLSearchParams(window.location.search);
+            const returnUrl = params.get('return');
+            window.location.href = returnUrl ? decodeURIComponent(returnUrl) : 'account.html';
+        }
+    </script>
+</body>
+</html>

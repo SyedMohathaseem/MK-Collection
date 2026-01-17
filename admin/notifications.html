@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | MK Collection Admin</title>
+    <base href="/admin/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <a href="index.html" class="admin-logo">MK<span>Admin</span></a>
+            </div>
+            <nav class="admin-nav">
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Overview</p>
+                    <a href="index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="orders.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        Orders
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Catalog</p>
+                    <a href="products.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        Products
+                    </a>
+                    <a href="inventory.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        Inventory
+                    </a>
+                    <a href="upload.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Image Upload
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Settings</p>
+                    <a href="notifications.html" class="admin-nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        Notifications
+                    </a>
+                    <a href="settings.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Settings
+                    </a>
+                    <a href="../index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        View Store
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <button class="admin-mobile-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1>Notifications</h1>
+                <div class="admin-header-actions">
+                    <button class="btn btn-secondary btn-sm" onclick="clearAllNotifications()">Clear All</button>
+                    <button class="btn btn-primary btn-sm" onclick="refreshNotifications()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        Refresh
+                    </button>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Notification Stats -->
+                <div class="stats-grid" style="margin-bottom:var(--space-6)">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:var(--color-blush-light)">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--color-blush-pink)" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">Total Alerts</p>
+                            <h3 class="stat-value" id="stat-total">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#fef3c7">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#f59e0b" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">Unread</p>
+                            <h3 class="stat-value" id="stat-unread">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#dbeafe">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#3b82f6" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">New Orders</p>
+                            <h3 class="stat-value" id="stat-orders">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#fce7f3">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#ec4899" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                        </div>
+                        <div class="stat-info">
+                            <p class="stat-label">Low Stock</p>
+                            <h3 class="stat-value" id="stat-lowstock">0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications List -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">All Notifications</h3>
+                        <div class="chart-period">
+                            <button class="chart-period-btn active" data-filter="all">All</button>
+                            <button class="chart-period-btn" data-filter="orders">Orders</button>
+                            <button class="chart-period-btn" data-filter="inventory">Inventory</button>
+                            <button class="chart-period-btn" data-filter="system">System</button>
+                        </div>
+                    </div>
+                    <div id="notifications-list" style="max-height:500px;overflow-y:auto">
+                        <!-- Notifications will be loaded here -->
+                    </div>
+                    <div id="empty-state" style="text-align:center;padding:var(--space-12);display:none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--color-gray-300)" width="64" height="64" style="margin:0 auto var(--space-4)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                        <h4 style="color:var(--color-gray-500)">No Notifications</h4>
+                        <p style="color:var(--color-gray-400);font-size:var(--text-sm)">You're all caught up!</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/store.js"></script>
+    <script src="../js/notify.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        const ADMIN_NOTIFICATION_KEY = 'mk_admin_notifications';
+        let currentFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNotifications();
+            setupFilters();
+            
+            // Listen for new orders
+            if (typeof MKStore !== 'undefined') {
+                MKStore.onSync('orders', () => {
+                    addOrderNotification();
+                    loadNotifications();
+                });
+            }
+        });
+
+        function getNotifications() {
+            const stored = localStorage.getItem(ADMIN_NOTIFICATION_KEY);
+            if (!stored) {
+                // Create sample notifications
+                const samples = [
+                    { id: 1, type: 'orders', title: 'New Order Received', message: 'Order #MK-2026-001 from Emily Chen ($347.00)', time: new Date().toISOString(), read: false },
+                    { id: 2, type: 'orders', title: 'Order Shipped', message: 'Order #MK-2026-003 has been marked as shipped', time: new Date(Date.now() - 3600000).toISOString(), read: false },
+                    { id: 3, type: 'inventory', title: 'Low Stock Alert', message: 'Classic White Linen Blouse is running low (8 units left)', time: new Date(Date.now() - 7200000).toISOString(), read: false },
+                    { id: 4, type: 'inventory', title: 'Out of Stock', message: 'Summer Floral Maxi Dress is now out of stock', time: new Date(Date.now() - 86400000).toISOString(), read: true },
+                    { id: 5, type: 'system', title: 'Welcome to MK Admin', message: 'Your admin panel is ready. Start by checking your orders and inventory.', time: new Date(Date.now() - 172800000).toISOString(), read: true }
+                ];
+                localStorage.setItem(ADMIN_NOTIFICATION_KEY, JSON.stringify(samples));
+                return samples;
+            }
+            return JSON.parse(stored);
+        }
+
+        function saveNotifications(notifications) {
+            localStorage.setItem(ADMIN_NOTIFICATION_KEY, JSON.stringify(notifications));
+        }
+
+        function addOrderNotification() {
+            const orders = typeof MKStore !== 'undefined' ? MKStore.getOrders() : [];
+            if (orders.length > 0) {
+                const latest = orders[0];
+                const notifications = getNotifications();
+                // Check if already notified
+                if (!notifications.find(n => n.message.includes(latest.id))) {
+                    notifications.unshift({
+                        id: Date.now(),
+                        type: 'orders',
+                        title: 'New Order Received',
+                        message: `Order #${latest.id} from ${latest.customer} ($${latest.total.toFixed(2)})`,
+                        time: new Date().toISOString(),
+                        read: false
+                    });
+                    saveNotifications(notifications);
+                }
+            }
+        }
+
+        function loadNotifications() {
+            const notifications = getNotifications();
+            const filtered = currentFilter === 'all' ? notifications : notifications.filter(n => n.type === currentFilter);
+            const container = document.getElementById('notifications-list');
+            const emptyState = document.getElementById('empty-state');
+
+            // Update stats
+            document.getElementById('stat-total').textContent = notifications.length;
+            document.getElementById('stat-unread').textContent = notifications.filter(n => !n.read).length;
+            document.getElementById('stat-orders').textContent = notifications.filter(n => n.type === 'orders' && !n.read).length;
+            document.getElementById('stat-lowstock').textContent = notifications.filter(n => n.type === 'inventory').length;
+
+            if (filtered.length === 0) {
+                container.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            container.style.display = 'block';
+            emptyState.style.display = 'none';
+
+            const typeColors = {
+                orders: { bg: '#dbeafe', color: '#3b82f6' },
+                inventory: { bg: '#fef3c7', color: '#f59e0b' },
+                system: { bg: '#e0e7ff', color: '#6366f1' }
+            };
+
+            container.innerHTML = filtered.map(n => {
+                const colors = typeColors[n.type] || typeColors.system;
+                return `
+                <div style="display:flex;align-items:flex-start;gap:var(--space-4);padding:var(--space-4);border-bottom:1px solid var(--color-gray-100);${!n.read ? 'background:var(--color-blush-light);' : ''}">
+                    <div style="width:40px;height:40px;background:${colors.bg};border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                        ${getTypeIcon(n.type, colors.color)}
+                    </div>
+                    <div style="flex:1;min-width:0">
+                        <div style="display:flex;align-items:center;gap:var(--space-2)">
+                            <span style="font-weight:600">${n.title}</span>
+                            ${!n.read ? '<span style="width:8px;height:8px;background:var(--color-blush-pink);border-radius:50%"></span>' : ''}
+                        </div>
+                        <p style="margin:var(--space-1) 0 0;color:var(--color-gray-600);font-size:var(--text-sm)">${n.message}</p>
+                        <span style="font-size:var(--text-xs);color:var(--color-gray-400)">${formatTime(n.time)}</span>
+                    </div>
+                    <button onclick="deleteNotification(${n.id})" style="background:none;border:none;cursor:pointer;color:var(--color-gray-400);padding:var(--space-1)">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            `}).join('');
+
+            // Mark all as read after viewing
+            notifications.forEach(n => n.read = true);
+            saveNotifications(notifications);
+        }
+
+        function getTypeIcon(type, color) {
+            const icons = {
+                orders: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="${color}" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>`,
+                inventory: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="${color}" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>`,
+                system: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="${color}" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`
+            };
+            return icons[type] || icons.system;
+        }
+
+        function setupFilters() {
+            document.querySelectorAll('.chart-period-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.chart-period-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.filter;
+                    loadNotifications();
+                });
+            });
+        }
+
+        function deleteNotification(id) {
+            const notifications = getNotifications().filter(n => n.id !== id);
+            saveNotifications(notifications);
+            loadNotifications();
+            MKAdmin.showToast('Notification deleted', 'success');
+        }
+
+        function clearAllNotifications() {
+            if (confirm('Clear all notifications?')) {
+                localStorage.removeItem(ADMIN_NOTIFICATION_KEY);
+                loadNotifications();
+                MKAdmin.showToast('All notifications cleared', 'success');
+            }
+        }
+
+        function refreshNotifications() {
+            loadNotifications();
+            MKAdmin.showToast('Notifications refreshed', 'success');
+        }
+
+        function formatTime(isoString) {
+            const date = new Date(isoString);
+            const now = new Date();
+            const diff = now - date;
+            
+            if (diff < 3600000) return Math.floor(diff / 60000) + ' min ago';
+            if (diff < 86400000) return Math.floor(diff / 3600000) + ' hours ago';
+            if (diff < 604800000) return Math.floor(diff / 86400000) + ' days ago';
+            return date.toLocaleDateString();
+        }
+    </script>
+</body>
+</html>

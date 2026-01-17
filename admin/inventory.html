@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory | MK Collection Admin</title>
+    <base href="/admin/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <a href="index.html" class="admin-logo">MK<span>Admin</span></a>
+            </div>
+            <nav class="admin-nav">
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Overview</p>
+                    <a href="index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="orders.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        Orders
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Catalog</p>
+                    <a href="products.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        Products
+                    </a>
+                    <a href="inventory.html" class="admin-nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        Inventory
+                        <span class="admin-nav-badge" style="background:var(--color-warning)">3</span>
+                    </a>
+                    <a href="upload.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Image Upload
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Settings</p>
+                    <a href="settings.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Settings
+                    </a>
+                    <a href="../index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        View Store
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <button class="admin-mobile-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1 class="admin-page-title">Inventory Management</h1>
+                <div class="admin-header-right">
+                    <button class="btn btn-secondary" onclick="exportInventory()">Export CSV</button>
+                    <button class="btn btn-primary" onclick="bulkUpdate()">Bulk Update</button>
+                </div>
+            </header>
+
+
+            <div class="admin-content">
+                <!-- Inventory Stats -->
+                <div class="stats-grid" style="margin-bottom:var(--space-6)">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        </div>
+                        <p class="stat-value">192</p>
+                        <p class="stat-label">Total Products</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#D1FAE5;color:#10B981">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <p class="stat-value">3</p>
+                        <p class="stat-label">In Stock</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#FEF3C7;color:#F59E0B">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        </div>
+                        <p class="stat-value">1</p>
+                        <p class="stat-label">Low Stock</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#FEE2E2;color:#EF4444">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <p class="stat-value">1</p>
+                        <p class="stat-label">Out of Stock</p>
+                    </div>
+                </div>
+
+                <!-- Alerts -->
+                <div class="admin-alert warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#F59E0B" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    <div>
+                        <strong>Low Stock Alert:</strong> Classic White Linen Blouse (8 units remaining)
+                        <button class="btn btn-sm" style="margin-left:var(--space-4)" onclick="reorder('prod-002')">Reorder Now</button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div style="display:flex;gap:var(--space-4);margin-bottom:var(--space-6);flex-wrap:wrap">
+                    <div class="search-input-wrapper" style="width:300px">
+                        <span class="search-input-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span>
+                        <input type="text" class="search-input" placeholder="Search by product name or SKU..." id="search-input">
+                    </div>
+                    <select class="form-input form-select" style="width:auto" id="status-filter">
+                        <option value="">All Status</option>
+                        <option value="in-stock">In Stock</option>
+                        <option value="low-stock">Low Stock</option>
+                        <option value="out-of-stock">Out of Stock</option>
+                    </select>
+                    <select class="form-input form-select" style="width:auto" id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="dresses">Dresses</option>
+                        <option value="tops">Tops</option>
+                        <option value="bottoms">Bottoms</option>
+                        <option value="activewear">Activewear</option>
+                    </select>
+                </div>
+
+                <!-- Inventory Table -->
+                <div class="admin-table" id="inventory-table"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Stock Modal -->
+    <div class="modal-backdrop" id="stock-modal-backdrop"></div>
+    <div class="modal" id="stock-modal" style="max-width:500px">
+        <div class="modal-header">
+            <h3 class="modal-title">Update Stock</h3>
+            <button class="modal-close" onclick="closeStockModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <p id="edit-product-name" style="font-weight:var(--font-semibold);margin-bottom:var(--space-4)"></p>
+            
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-4);margin-bottom:var(--space-6)">
+                <div class="form-group">
+                    <label class="form-label">XS</label>
+                    <input type="number" class="form-input" id="stock-xs" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">S</label>
+                    <input type="number" class="form-input" id="stock-s" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">M</label>
+                    <input type="number" class="form-input" id="stock-m" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">L</label>
+                    <input type="number" class="form-input" id="stock-l" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">XL</label>
+                    <input type="number" class="form-input" id="stock-xl" min="0" value="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Low Stock Threshold</label>
+                <input type="number" class="form-input" id="low-stock-threshold" value="10" min="1">
+                <p class="form-hint">Alert when stock falls below this number</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeStockModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveStock()">Save Changes</button>
+        </div>
+    </div>
+
+    <div class="toast-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/store.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        let editingProductId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderInventoryTable();
+            document.getElementById('status-filter').addEventListener('change', renderInventoryTable);
+            document.getElementById('search-input').addEventListener('input', debounce(renderInventoryTable, 300));
+        });
+
+        function renderInventoryTable() {
+            const container = document.getElementById('inventory-table');
+            const statusFilter = document.getElementById('status-filter').value;
+            const searchQuery = document.getElementById('search-input').value.toLowerCase();
+
+            let inventory = [...MKAdmin.inventory];
+            
+            if (statusFilter) {
+                inventory = inventory.filter(i => i.status === statusFilter);
+            }
+            if (searchQuery) {
+                inventory = inventory.filter(i => 
+                    i.name.toLowerCase().includes(searchQuery) || 
+                    i.sku.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            container.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>SKU</th>
+                            <th>XS</th>
+                            <th>S</th>
+                            <th>M</th>
+                            <th>L</th>
+                            <th>XL</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${inventory.map(item => `
+                            <tr>
+                                <td><strong>${item.name}</strong></td>
+                                <td><code style="font-size:var(--text-sm)">${item.sku}</code></td>
+                                <td>${Math.floor(item.stock * 0.1)}</td>
+                                <td>${Math.floor(item.stock * 0.2)}</td>
+                                <td>${Math.floor(item.stock * 0.3)}</td>
+                                <td>${Math.floor(item.stock * 0.25)}</td>
+                                <td>${Math.floor(item.stock * 0.15)}</td>
+                                <td><strong>${item.stock}</strong></td>
+                                <td><span class="status-badge ${item.status}">${item.status.replace('-', ' ')}</span></td>
+                                <td>
+                                    <button class="btn btn-ghost btn-sm" onclick="editStock('${item.id}')">Edit</button>
+                                    <button class="btn btn-ghost btn-sm" onclick="viewHistory('${item.id}')">History</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function editStock(productId) {
+            editingProductId = productId;
+            const item = MKAdmin.inventory.find(i => i.id === productId);
+            if (!item) return;
+
+            document.getElementById('edit-product-name').textContent = item.name;
+            document.getElementById('stock-xs').value = Math.floor(item.stock * 0.1);
+            document.getElementById('stock-s').value = Math.floor(item.stock * 0.2);
+            document.getElementById('stock-m').value = Math.floor(item.stock * 0.3);
+            document.getElementById('stock-l').value = Math.floor(item.stock * 0.25);
+            document.getElementById('stock-xl').value = Math.floor(item.stock * 0.15);
+
+            document.getElementById('stock-modal').classList.add('active');
+            document.getElementById('stock-modal-backdrop').classList.add('active');
+        }
+
+        function closeStockModal() {
+            document.getElementById('stock-modal').classList.remove('active');
+            document.getElementById('stock-modal-backdrop').classList.remove('active');
+            editingProductId = null;
+        }
+
+        function saveStock() {
+            if (!editingProductId) return;
+            
+            const total = 
+                parseInt(document.getElementById('stock-xs').value) +
+                parseInt(document.getElementById('stock-s').value) +
+                parseInt(document.getElementById('stock-m').value) +
+                parseInt(document.getElementById('stock-l').value) +
+                parseInt(document.getElementById('stock-xl').value);
+
+            const item = MKAdmin.inventory.find(i => i.id === editingProductId);
+            if (item) {
+                item.stock = total;
+                item.status = total === 0 ? 'out-of-stock' : total < 10 ? 'low-stock' : 'in-stock';
+                item.lastUpdated = new Date().toISOString().split('T')[0];
+                renderInventoryTable();
+                MKAdmin.showToast('Stock updated successfully', 'success');
+            }
+            closeStockModal();
+        }
+
+        function viewHistory(productId) {
+            MKAdmin.showToast('Stock history coming soon', 'default');
+        }
+
+        function reorder(productId) {
+            MKAdmin.showToast('Opening reorder form...', 'default');
+        }
+
+        function exportInventory() {
+            MKAdmin.showToast('Exporting inventory to CSV...', 'success');
+        }
+
+        function bulkUpdate() {
+            MKAdmin.showToast('Bulk update feature coming soon', 'default');
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        document.getElementById('stock-modal-backdrop').addEventListener('click', closeStockModal);
+    </script>
+</body>
+</html>

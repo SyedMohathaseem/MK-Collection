@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | MK Collection Admin</title>
+    <base href="/admin/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <a href="index.html" class="admin-logo">MK<span>Admin</span></a>
+            </div>
+            <nav class="admin-nav">
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Overview</p>
+                    <a href="index.html" class="admin-nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="orders.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        Orders
+                        <span class="admin-nav-badge">5</span>
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Catalog</p>
+                    <a href="products.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        Products
+                    </a>
+                    <a href="inventory.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                        Inventory
+                        <span class="admin-nav-badge" style="background:var(--color-warning)">3</span>
+                    </a>
+                    <a href="upload.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Image Upload
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Settings</p>
+                    <a href="settings.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Settings
+                    </a>
+                    <a href="../index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        View Store
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <button class="admin-mobile-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1 class="admin-page-title">Dashboard</h1>
+                <div class="admin-header-right">
+                    <button class="btn btn-primary btn-sm" onclick="window.location.href='products.html'">+ Add Product</button>
+                    <div class="admin-user">
+                        <div class="admin-avatar">A</div>
+                        <span style="font-size:var(--text-sm)">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+
+            <div class="admin-content">
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <span class="stat-trend up">↑ 23%</span>
+                        </div>
+                        <p class="stat-value" id="stat-revenue">$1,385</p>
+                        <p class="stat-label">Today's Revenue</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                            </div>
+                            <span class="stat-trend up">↑ 12%</span>
+                        </div>
+                        <p class="stat-value" id="stat-orders">2</p>
+                        <p class="stat-label">Today's Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon" style="background:#FEF3C7;color:#F59E0B">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                        <p class="stat-value" id="stat-pending">1</p>
+                        <p class="stat-label">Pending Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <div class="stat-icon" style="background:#FEE2E2;color:#EF4444">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            </div>
+                        </div>
+                        <p class="stat-value" id="stat-low-stock">2</p>
+                        <p class="stat-label">Low Stock Items</p>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div style="display:grid;grid-template-columns:2fr 1fr;gap:var(--space-6);margin-bottom:var(--space-6)">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Sales Overview</h3>
+                            <div class="chart-actions">
+                                <button class="chart-period-btn active" data-period="daily">Daily</button>
+                                <button class="chart-period-btn" data-period="weekly">Weekly</button>
+                                <button class="chart-period-btn" data-period="monthly">Monthly</button>
+                            </div>
+                        </div>
+                        <div style="height:300px">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Order Status</h3>
+                        </div>
+                        <div style="height:300px">
+                            <canvas id="ordersChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders & Top Products -->
+                <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--space-6)">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Recent Orders</h3>
+                            <a href="orders.html" class="btn btn-ghost btn-sm">View All</a>
+                        </div>
+                        <div class="admin-table" id="orders-table"></div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Top Selling Products</h3>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+                            <div style="display:flex;align-items:center;gap:var(--space-3)">
+                                <div style="width:48px;height:60px;background:var(--color-gray-100);border-radius:var(--radius-md)"></div>
+                                <div style="flex:1">
+                                    <p style="font-weight:var(--font-medium);margin:0">Elegant Blush Midi Dress</p>
+                                    <p style="font-size:var(--text-sm);color:var(--color-gray-500);margin:0">128 sold</p>
+                                </div>
+                                <span style="font-weight:var(--font-semibold)">$189</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:var(--space-3)">
+                                <div style="width:48px;height:60px;background:var(--color-gray-100);border-radius:var(--radius-md)"></div>
+                                <div style="flex:1">
+                                    <p style="font-weight:var(--font-medium);margin:0">Summer Floral Maxi</p>
+                                    <p style="font-size:var(--text-sm);color:var(--color-gray-500);margin:0">98 sold</p>
+                                </div>
+                                <span style="font-weight:var(--font-semibold)">$149</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:var(--space-3)">
+                                <div style="width:48px;height:60px;background:var(--color-gray-100);border-radius:var(--radius-md)"></div>
+                                <div style="flex:1">
+                                    <p style="font-weight:var(--font-medium);margin:0">Athleisure Yoga Set</p>
+                                    <p style="font-size:var(--text-sm);color:var(--color-gray-500);margin:0">87 sold</p>
+                                </div>
+                                <span style="font-weight:var(--font-semibold)">$89</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/store.js"></script>
+    <script src="../js/notify.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            MKAdmin.renderOrdersTable('orders-table');
+
+            // Sales Chart
+            const salesCtx = document.getElementById('salesChart')?.getContext('2d');
+            if (salesCtx) {
+                new Chart(salesCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Revenue',
+                            data: [1200, 1900, 1500, 2100, 1800, 2400, 2200],
+                            borderColor: '#F5B8C9',
+                            backgroundColor: 'rgba(245, 184, 201, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, grid: { color: '#f0f0f0' } },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            // Orders Chart
+            const ordersCtx = document.getElementById('ordersChart')?.getContext('2d');
+            if (ordersCtx) {
+                new Chart(ordersCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Pending', 'Processing', 'Shipped', 'Delivered'],
+                        datasets: [{
+                            data: [1, 2, 1, 1],
+                            backgroundColor: ['#F59E0B', '#3B82F6', '#10B981', '#6366F1']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

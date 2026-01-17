@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders | MK Collection Admin</title>
+    <base href="/admin/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <a href="index.html" class="admin-logo">MK<span>Admin</span></a>
+            </div>
+            <nav class="admin-nav">
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Overview</p>
+                    <a href="index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="orders.html" class="admin-nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        Orders
+                        <span class="admin-nav-badge">5</span>
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Catalog</p>
+                    <a href="products.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        Products
+                    </a>
+                    <a href="inventory.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        Inventory
+                    </a>
+                    <a href="upload.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Image Upload
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Settings</p>
+                    <a href="settings.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Settings
+                    </a>
+                    <a href="../index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        View Store
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <button class="admin-mobile-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1 class="admin-page-title">Orders</h1>
+                <div class="admin-header-right">
+                    <div class="search-input-wrapper" style="width:250px">
+                        <span class="search-input-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span>
+                        <input type="text" class="search-input" placeholder="Search orders...">
+                    </div>
+                    <button class="btn btn-secondary" onclick="exportOrders()">Export CSV</button>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Order Stats -->
+                <div class="stats-grid" style="grid-template-columns:repeat(5, 1fr);margin-bottom:var(--space-6)">
+                    <div class="stat-card" style="padding:var(--space-4)">
+                        <p class="stat-label">All Orders</p>
+                        <p class="stat-value" style="font-size:var(--text-2xl)">5</p>
+                    </div>
+                    <div class="stat-card" style="padding:var(--space-4);border-left:3px solid #F59E0B">
+                        <p class="stat-label">Pending</p>
+                        <p class="stat-value" style="font-size:var(--text-2xl);color:#F59E0B">1</p>
+                    </div>
+                    <div class="stat-card" style="padding:var(--space-4);border-left:3px solid #3B82F6">
+                        <p class="stat-label">Processing</p>
+                        <p class="stat-value" style="font-size:var(--text-2xl);color:#3B82F6">2</p>
+                    </div>
+                    <div class="stat-card" style="padding:var(--space-4);border-left:3px solid #10B981">
+                        <p class="stat-label">Shipped</p>
+                        <p class="stat-value" style="font-size:var(--text-2xl);color:#10B981">1</p>
+                    </div>
+                    <div class="stat-card" style="padding:var(--space-4);border-left:3px solid #6366F1">
+                        <p class="stat-label">Delivered</p>
+                        <p class="stat-value" style="font-size:var(--text-2xl);color:#6366F1">1</p>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div style="display:flex;gap:var(--space-4);margin-bottom:var(--space-6);flex-wrap:wrap">
+                    <select class="form-input form-select" style="width:auto" id="status-filter">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <input type="date" class="form-input" style="width:auto" id="date-from" placeholder="From">
+                    <input type="date" class="form-input" style="width:auto" id="date-to" placeholder="To">
+                    <button class="btn btn-secondary btn-sm" onclick="clearFilters()">Clear</button>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="admin-table" id="orders-table"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal-backdrop" id="order-modal-backdrop"></div>
+    <div class="modal" id="order-modal" style="max-width:700px">
+        <div class="modal-header">
+            <h3 class="modal-title">Order Details</h3>
+            <button class="modal-close" onclick="closeOrderModal()">×</button>
+        </div>
+        <div class="modal-body" style="max-height:70vh" id="order-detail-content">
+            <!-- Populated by JS -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeOrderModal()">Close</button>
+            <select class="form-input form-select" style="width:auto" id="update-status">
+                <option value="pending">Pending</option>
+                <option value="processing">Processing</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+            <button class="btn btn-primary" onclick="updateOrderStatus()">Update Status</button>
+        </div>
+    </div>
+
+    <div class="toast-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/store.js"></script>
+    <script src="../js/notify.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        let selectedOrderId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderOrdersTable();
+        });
+
+        function renderOrdersTable() {
+            const container = document.getElementById('orders-table');
+            const statusFilter = document.getElementById('status-filter').value;
+
+            let orders = [...MKAdmin.orders];
+            if (statusFilter) {
+                orders = orders.filter(o => o.status === statusFilter);
+            }
+
+            container.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="select-all"></th>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${orders.map(order => `
+                            <tr>
+                                <td><input type="checkbox" class="order-checkbox" data-id="${order.id}"></td>
+                                <td><strong>${order.id}</strong></td>
+                                <td>
+                                    <div>${order.customer}</div>
+                                    <small style="color:var(--color-gray-500)">${order.email}</small>
+                                </td>
+                                <td>${order.items} items</td>
+                                <td><strong>$${order.total.toFixed(2)}</strong></td>
+                                <td><span class="status-badge ${order.status}">${order.status}</span></td>
+                                <td>${formatDate(order.date)}</td>
+                                <td>
+                                    <button class="btn btn-ghost btn-sm" onclick="viewOrder('${order.id}')">View</button>
+                                    <button class="btn btn-ghost btn-sm" onclick="printOrder('${order.id}')">Print</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function viewOrder(orderId) {
+            selectedOrderId = orderId;
+            const order = MKAdmin.orders.find(o => o.id === orderId);
+            if (!order) return;
+
+            document.getElementById('update-status').value = order.status;
+            document.getElementById('order-detail-content').innerHTML = `
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+                    <div>
+                        <h4 style="margin-bottom:var(--space-3)">Customer Information</h4>
+                        <p style="margin:0 0 var(--space-1)"><strong>${order.customer}</strong></p>
+                        <p style="margin:0 0 var(--space-1);color:var(--color-gray-500)">${order.email}</p>
+                        <p style="margin:0;color:var(--color-gray-500)">123 Fashion Street, NYC 10001</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom:var(--space-3)">Order Information</h4>
+                        <p style="margin:0 0 var(--space-1)">Order ID: <strong>${order.id}</strong></p>
+                        <p style="margin:0 0 var(--space-1)">Date: ${formatDate(order.date)}</p>
+                        <p style="margin:0">Status: <span class="status-badge ${order.status}">${order.status}</span></p>
+                    </div>
+                </div>
+                <hr style="margin:var(--space-6) 0;border:none;border-top:1px solid var(--color-gray-200)">
+                <h4 style="margin-bottom:var(--space-4)">Order Items</h4>
+                <table style="width:100%;font-size:var(--text-sm)">
+                    <tr style="border-bottom:1px solid var(--color-gray-200)">
+                        <td style="padding:var(--space-3) 0">Elegant Blush Midi Dress × 1</td>
+                        <td style="text-align:right;padding:var(--space-3) 0">$189.00</td>
+                    </tr>
+                    ${order.items > 1 ? `
+                    <tr style="border-bottom:1px solid var(--color-gray-200)">
+                        <td style="padding:var(--space-3) 0">Summer Accessories Set × ${order.items - 1}</td>
+                        <td style="text-align:right;padding:var(--space-3) 0">$${(order.total - 189).toFixed(2)}</td>
+                    </tr>
+                    ` : ''}
+                </table>
+                <div style="margin-top:var(--space-4);text-align:right">
+                    <p style="margin:0">Subtotal: $${(order.total - 9.99).toFixed(2)}</p>
+                    <p style="margin:var(--space-1) 0;color:var(--color-gray-500)">Shipping: $9.99</p>
+                    <p style="margin:var(--space-2) 0;font-size:var(--text-lg);font-weight:var(--font-bold)">Total: $${order.total.toFixed(2)}</p>
+                </div>
+            `;
+
+            document.getElementById('order-modal').classList.add('active');
+            document.getElementById('order-modal-backdrop').classList.add('active');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('order-modal').classList.remove('active');
+            document.getElementById('order-modal-backdrop').classList.remove('active');
+            selectedOrderId = null;
+        }
+
+        function updateOrderStatus() {
+            if (!selectedOrderId) return;
+            const newStatus = document.getElementById('update-status').value;
+            const order = MKAdmin.orders.find(o => o.id === selectedOrderId);
+            if (order) {
+                order.status = newStatus;
+                renderOrdersTable();
+                MKAdmin.showToast(`Order status updated to ${newStatus}`, 'success');
+                closeOrderModal();
+            }
+        }
+
+        function printOrder(orderId) {
+            MKAdmin.showToast('Preparing order for print...', 'default');
+        }
+
+        function exportOrders() {
+            MKAdmin.showToast('Exporting orders to CSV...', 'success');
+        }
+
+        function clearFilters() {
+            document.getElementById('status-filter').value = '';
+            document.getElementById('date-from').value = '';
+            document.getElementById('date-to').value = '';
+            renderOrdersTable();
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        }
+
+        document.getElementById('status-filter').addEventListener('change', renderOrdersTable);
+        document.getElementById('order-modal-backdrop').addEventListener('click', closeOrderModal);
+    </script>
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | MK Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <button class="mobile-menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+            <a href="index.html" class="logo">MK<span>Collection</span></a>
+            <nav class="nav-main">
+                <a href="index.html" class="nav-link">New Arrivals</a>
+                <!-- Categories Dropdown -->
+                <div class="nav-dropdown mega-dropdown">
+                    <a href="products.html" class="nav-link">Categories</a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-inner">
+                            <div class="mega-menu-column">
+                                <h4>Women</h4>
+                                <ul>
+                                    <li><a href="products.html?cat=dresses">Dresses</a></li>
+                                    <li><a href="products.html?cat=tops">Tops</a></li>
+                                    <li><a href="products.html?cat=bottoms">Bottoms</a></li>
+                                    <li><a href="products.html?cat=activewear">Activewear</a></li>
+                                    <li><a href="products.html?cat=cotton-dresses">Cotton Dresses</a></li>
+                                    <li><a href="products.html?cat=readymades">Readymades</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu-column">
+                                <h4>Accessories</h4>
+                                <ul>
+                                    <li><a href="products.html?cat=jewelry">Jewelry</a></li>
+                                    <li><a href="products.html?cat=bags">Bags</a></li>
+                                    <li><a href="products.html?cat=scarves">Scarves</a></li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu-column">
+                                <div class="mega-menu-featured">
+                                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&h=300&fit=crop" alt="New Collection">
+                                    <div class="mega-menu-featured-content">
+                                        <h5>Summer 2026</h5>
+                                        <p>Explore the collection</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="products.html" class="nav-link">Collections</a>
+                    <div class="nav-dropdown-menu">
+                        <a href="products.html?collection=summer-essentials" class="nav-dropdown-item">Summer Essentials</a>
+                        <a href="products.html?collection=wedding-guest" class="nav-dropdown-item">Wedding Guest</a>
+                        <a href="products.html?collection=office-chic" class="nav-dropdown-item">Office Chic</a>
+                    </div>
+                </div>
+                <a href="products.html?filter=sale" class="nav-link sale">Sale</a>
+                <a href="about.html" class="nav-link">About Us</a>
+            </nav>
+            <div class="header-actions">
+                <button class="header-action" data-search-toggle><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+                <a href="account.html" class="header-action"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></a>
+                <a href="notifications.html" class="header-action"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><span class="header-action-badge notification-badge" style="display:none">0</span></a>
+                <a href="wishlist.html" class="header-action"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></a>
+                <button class="header-action" data-cart-toggle><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg><span class="header-action-badge" style="display:none">0</span></button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="product-detail">
+            <div class="container">
+                <!-- Breadcrumbs -->
+                <nav class="breadcrumbs">
+                    <span class="breadcrumb-item"><a href="index.html">Home</a></span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item"><a href="products.html">Shop</a></span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item" id="breadcrumb-category">Dresses</span>
+                    <span class="breadcrumb-separator">/</span>
+                    <span class="breadcrumb-item" id="breadcrumb-product">Product Name</span>
+                </nav>
+
+                <div class="product-detail-grid">
+                    <!-- Product Gallery -->
+                    <div class="product-gallery">
+                        <div class="product-gallery-main">
+                            <img id="main-image" src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&h=1000&fit=crop" alt="Product Image">
+                        </div>
+                        <div class="product-gallery-thumbnails" id="thumbnails"></div>
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="product-info">
+                        <p class="product-brand">MK Collection</p>
+                        <h1 class="product-title" id="product-title">Product Name</h1>
+                        
+                        <div class="product-price-section">
+                            <span class="product-price" id="product-price">$189.00</span>
+                            <span class="product-original-price" id="original-price" style="display:none">$249.00</span>
+                            <span class="product-discount" id="discount-badge" style="display:none">-24%</span>
+                        </div>
+
+                        <!-- Rating -->
+                        <div class="rating" style="margin-bottom:var(--space-6)">
+                            <span class="rating-star filled"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+                            <span class="rating-star filled"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+                            <span class="rating-star filled"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+                            <span class="rating-star filled"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+                            <span class="rating-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+                            <span class="rating-count" id="review-count">(128 reviews)</span>
+                        </div>
+
+                        <p class="product-description" id="product-description">Product description goes here.</p>
+
+                        <!-- Color Selection -->
+                        <div class="product-option">
+                            <div class="product-option-header">
+                                <span class="product-option-label">Color</span>
+                                <span class="product-option-selected" id="selected-color">Blush Pink</span>
+                            </div>
+                            <div class="color-options" id="color-options"></div>
+                        </div>
+
+                        <!-- Size Selection -->
+                        <div class="product-option">
+                            <div class="product-option-header">
+                                <span class="product-option-label">Size</span>
+                                <button class="size-guide-link" onclick="openSizeGuide()">Size Guide</button>
+                            </div>
+                            <div class="size-options" id="size-options"></div>
+                        </div>
+
+                        <!-- Quantity & Add to Cart -->
+                        <div class="product-actions">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn quantity-minus">−</button>
+                                <input type="number" class="quantity-value" value="1" min="1" max="10">
+                                <button class="quantity-btn quantity-plus">+</button>
+                            </div>
+                            <button class="btn btn-primary btn-lg" id="add-to-cart">Add to Bag</button>
+                            <button class="btn btn-secondary btn-icon" id="wishlist-btn" aria-label="Add to Wishlist">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            </button>
+                        </div>
+
+                        <!-- Product Meta -->
+                        <div class="product-meta">
+                            <div class="product-meta-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                                <span>Free shipping over $150</span>
+                            </div>
+                            <div class="product-meta-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                <span>Easy 30-day returns</span>
+                            </div>
+                        </div>
+
+                        <!-- Product Details Accordion -->
+                        <div class="accordion" style="margin-top:var(--space-8)">
+                            <div class="accordion-item active">
+                                <div class="accordion-header">
+                                    <span>Product Details</span>
+                                    <span class="accordion-icon">▼</span>
+                                </div>
+                                <div class="accordion-body">
+                                    <div class="accordion-content">
+                                        <p><strong>Fabric:</strong> <span id="fabric-info">95% Polyester, 5% Elastane</span></p>
+                                        <p><strong>Care:</strong> <span id="care-info">Machine wash cold</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <span>Shipping & Returns</span>
+                                    <span class="accordion-icon">▼</span>
+                                </div>
+                                <div class="accordion-body">
+                                    <div class="accordion-content">
+                                        <p>Free standard shipping on orders over $150. Express shipping available.</p>
+                                        <p>Free returns within 30 days. Items must be unworn with tags attached.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- You May Also Like -->
+                <section class="outfit-section">
+                    <h2 class="section-title">Complete the Look</h2>
+                    <div class="outfit-grid" id="related-products"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-copyright">© MK Collection. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer-backdrop"></div>
+    <div class="cart-drawer">
+        <div class="cart-drawer-header"><h3 class="cart-drawer-title">Your Bag</h3><button class="cart-drawer-close btn-ghost"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+        <div class="cart-drawer-body"></div>
+        <div class="cart-drawer-footer">
+            <div class="cart-shipping-progress"><p class="cart-shipping-text">Add $150 for free shipping</p><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div></div>
+            <div class="cart-subtotal"><span>Subtotal</span><span class="cart-subtotal-value">$0.00</span></div>
+            <a href="checkout.html" class="btn btn-primary btn-full">Checkout</a>
+        </div>
+    </div>
+
+    <!-- Size Guide Modal -->
+    <div class="modal-backdrop" id="size-modal-backdrop"></div>
+    <div class="modal" id="size-modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Size Guide</h3>
+            <button class="modal-close" onclick="closeSizeGuide()">×</button>
+        </div>
+        <div class="modal-body">
+            <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm)">
+                <thead><tr style="border-bottom:2px solid var(--color-gray-200)"><th style="padding:var(--space-3);text-align:left">Size</th><th style="padding:var(--space-3)">Bust</th><th style="padding:var(--space-3)">Waist</th><th style="padding:var(--space-3)">Hips</th></tr></thead>
+                <tbody>
+                    <tr><td style="padding:var(--space-3)">XS</td><td style="padding:var(--space-3);text-align:center">32-33"</td><td style="padding:var(--space-3);text-align:center">24-25"</td><td style="padding:var(--space-3);text-align:center">34-35"</td></tr>
+                    <tr style="background:var(--color-gray-50)"><td style="padding:var(--space-3)">S</td><td style="padding:var(--space-3);text-align:center">34-35"</td><td style="padding:var(--space-3);text-align:center">26-27"</td><td style="padding:var(--space-3);text-align:center">36-37"</td></tr>
+                    <tr><td style="padding:var(--space-3)">M</td><td style="padding:var(--space-3);text-align:center">36-37"</td><td style="padding:var(--space-3);text-align:center">28-29"</td><td style="padding:var(--space-3);text-align:center">38-39"</td></tr>
+                    <tr style="background:var(--color-gray-50)"><td style="padding:var(--space-3)">L</td><td style="padding:var(--space-3);text-align:center">38-40"</td><td style="padding:var(--space-3);text-align:center">30-32"</td><td style="padding:var(--space-3);text-align:center">40-42"</td></tr>
+                    <tr><td style="padding:var(--space-3)">XL</td><td style="padding:var(--space-3);text-align:center">41-43"</td><td style="padding:var(--space-3);text-align:center">33-35"</td><td style="padding:var(--space-3);text-align:center">43-45"</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal">
+        <div class="search-modal-content">
+            <div class="search-header">
+                <div class="search-input-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <input type="text" class="search-input" placeholder="Search for products...">
+                </div>
+                <button class="search-close" onclick="document.querySelector('.search-modal').classList.remove('active')">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="search-results"></div>
+        </div>
+    </div>
+
+    <div class="toast-container"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/wishlist.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        let currentProduct = null;
+        let selectedColor = null;
+        let selectedSize = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id') || 'prod-001';
+            loadProduct(productId);
+            MKUI.initAccordion(document.querySelector('.accordion'));
+            MKUI.initQuantitySelectors();
+        });
+
+        function loadProduct(productId) {
+            currentProduct = MKData.getProductById(productId);
+            if (!currentProduct) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            document.title = `${currentProduct.name} | MK Collection`;
+            document.getElementById('product-title').textContent = currentProduct.name;
+            document.getElementById('breadcrumb-product').textContent = currentProduct.name;
+            document.getElementById('breadcrumb-category').textContent = currentProduct.category;
+            document.getElementById('product-description').textContent = currentProduct.description;
+            document.getElementById('product-price').textContent = `$${currentProduct.price.toFixed(2)}`;
+            document.getElementById('review-count').textContent = `(${currentProduct.reviews} reviews)`;
+            document.getElementById('fabric-info').textContent = currentProduct.fabric;
+            document.getElementById('care-info').textContent = currentProduct.care;
+
+            if (currentProduct.originalPrice) {
+                document.getElementById('original-price').textContent = `$${currentProduct.originalPrice.toFixed(2)}`;
+                document.getElementById('original-price').style.display = 'inline';
+                document.getElementById('discount-badge').textContent = `-${currentProduct.discount}%`;
+                document.getElementById('discount-badge').style.display = 'inline';
+            }
+
+            // Main image
+            document.getElementById('main-image').src = currentProduct.images[0];
+
+            // Thumbnails
+            const thumbsContainer = document.getElementById('thumbnails');
+            thumbsContainer.innerHTML = currentProduct.images.map((img, i) => `
+                <div class="product-thumbnail ${i === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)">
+                    <img src="${img}" alt="View ${i + 1}">
+                </div>
+            `).join('');
+
+            // Colors
+            selectedColor = currentProduct.colors[0];
+            document.getElementById('selected-color').textContent = selectedColor.name;
+            document.getElementById('color-options').innerHTML = currentProduct.colors.map((c, i) => `
+                <button class="color-option ${i === 0 ? 'active' : ''}" style="background:${c.code}" data-color="${c.name}" onclick="selectColor(this, '${c.name}')"></button>
+            `).join('');
+
+            // Sizes
+            document.getElementById('size-options').innerHTML = currentProduct.sizes.map(s => {
+                const stock = currentProduct.stock[s] || 0;
+                return `<button class="size-option ${stock === 0 ? 'out-of-stock' : ''}" data-size="${s}" onclick="selectSize(this, '${s}')" ${stock === 0 ? 'disabled' : ''}>${s}</button>`;
+            }).join('');
+
+            // Related products
+            const related = MKData.products.filter(p => p.id !== productId && p.category === currentProduct.category).slice(0, 4);
+            document.getElementById('related-products').innerHTML = related.map(p => MKUI.renderProductCard(p)).join('');
+            MKUI.initProductCards();
+
+            // Add to cart handler
+            document.getElementById('add-to-cart').addEventListener('click', addToCart);
+
+            // Wishlist
+            const wishlistBtn = document.getElementById('wishlist-btn');
+            if (MKWishlist.hasItem(currentProduct.id)) {
+                wishlistBtn.classList.add('active');
+                wishlistBtn.querySelector('svg').setAttribute('fill', 'currentColor');
+            }
+            wishlistBtn.addEventListener('click', () => {
+                const added = MKWishlist.toggleItem(currentProduct);
+                wishlistBtn.classList.toggle('active', added);
+                wishlistBtn.querySelector('svg').setAttribute('fill', added ? 'currentColor' : 'none');
+                MKApp.showToast(added ? 'Added to wishlist' : 'Removed from wishlist');
+            });
+        }
+
+        function changeImage(src, el) {
+            document.getElementById('main-image').src = src;
+            document.querySelectorAll('.product-thumbnail').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function selectColor(el, colorName) {
+            document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            selectedColor = currentProduct.colors.find(c => c.name === colorName);
+            document.getElementById('selected-color').textContent = colorName;
+        }
+
+        function selectSize(el, size) {
+            if (el.classList.contains('out-of-stock')) return;
+            document.querySelectorAll('.size-option').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+            selectedSize = size;
+        }
+
+        function addToCart() {
+            if (!selectedSize) {
+                MKApp.showToast('Please select a size', 'error');
+                return;
+            }
+            const qty = parseInt(document.querySelector('.quantity-value').value) || 1;
+            MKCart.addItem(currentProduct, { size: selectedSize, color: selectedColor?.name, quantity: qty });
+            MKApp.updateCartBadge();
+            MKApp.openCartDrawer();
+            MKApp.showToast('Added to bag!', 'success');
+        }
+
+        function openSizeGuide() {
+            document.getElementById('size-modal').classList.add('active');
+            document.getElementById('size-modal-backdrop').classList.add('active');
+        }
+
+        function closeSizeGuide() {
+            document.getElementById('size-modal').classList.remove('active');
+            document.getElementById('size-modal-backdrop').classList.remove('active');
+        }
+
+        document.getElementById('size-modal-backdrop').addEventListener('click', closeSizeGuide);
+    </script>
+</body>
+</html>

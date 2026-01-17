@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | MK Collection Admin</title>
+    <base href="/admin/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <a href="index.html" class="admin-logo">MK<span>Admin</span></a>
+            </div>
+            <nav class="admin-nav">
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Overview</p>
+                    <a href="index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="orders.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                        Orders
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Catalog</p>
+                    <a href="products.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        Products
+                    </a>
+                    <a href="inventory.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        Inventory
+                    </a>
+                    <a href="upload.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Image Upload
+                    </a>
+                </div>
+                <div class="admin-nav-section">
+                    <p class="admin-nav-title">Settings</p>
+                    <a href="settings.html" class="admin-nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        Settings
+                    </a>
+                    <a href="../index.html" class="admin-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                        View Store
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <button class="admin-mobile-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+                <h1 class="admin-page-title">Settings</h1>
+                <div class="admin-header-right">
+                    <div class="admin-user">
+                        <div class="admin-avatar">A</div>
+                        <span style="font-size:var(--text-sm)">Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Store Settings -->
+                <div class="chart-card" style="margin-bottom:var(--space-6)">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Store Information</h3>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+                        <div class="form-group">
+                            <label class="form-label">Store Name</label>
+                            <input type="text" class="form-input" id="store-name" value="MK Collection">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Store Email</label>
+                            <input type="email" class="form-input" id="store-email" value="contact@mkcollection.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Store Phone</label>
+                            <input type="tel" class="form-input" id="store-phone" value="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Currency</label>
+                            <select class="form-input form-select" id="store-currency">
+                                <option value="USD" selected>USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                                <option value="INR">INR (₹)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:var(--space-4)">
+                        <label class="form-label">Store Address</label>
+                        <textarea class="form-input form-textarea" id="store-address" rows="2">123 Fashion Avenue, New York, NY 10001</textarea>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top:var(--space-4)" onclick="saveStoreSettings()">Save Changes</button>
+                </div>
+
+                <!-- Shipping Settings -->
+                <div class="chart-card" style="margin-bottom:var(--space-6)">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Shipping Settings</h3>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+                        <div class="form-group">
+                            <label class="form-label">Free Shipping Threshold ($)</label>
+                            <input type="number" class="form-input" id="free-shipping" value="150" min="0">
+                            <p class="form-hint">Orders above this amount qualify for free shipping</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Standard Shipping Rate ($)</label>
+                            <input type="number" class="form-input" id="shipping-rate" value="9.99" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top:var(--space-4)">
+                        <label class="filter-option"><input type="checkbox" id="intl-shipping" checked> Enable International Shipping</label>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top:var(--space-4)" onclick="saveShippingSettings()">Save Shipping Settings</button>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="chart-card" style="margin-bottom:var(--space-6)">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Notifications</h3>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+                        <label class="filter-option"><input type="checkbox" id="notify-orders" checked> Email me when a new order is placed</label>
+                        <label class="filter-option"><input type="checkbox" id="notify-low-stock" checked> Alert when stock is low</label>
+                        <label class="filter-option"><input type="checkbox" id="notify-reviews"> Email me when a review is posted</label>
+                        <label class="filter-option"><input type="checkbox" id="daily-summary" checked> Daily sales summary</label>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top:var(--space-6)" onclick="saveNotificationSettings()">Save Notification Settings</button>
+                </div>
+
+                <!-- Admin Account -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Admin Account</h3>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+                        <div class="form-group">
+                            <label class="form-label">Admin Name</label>
+                            <input type="text" class="form-input" id="admin-name" value="Admin User">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Admin Email</label>
+                            <input type="email" class="form-input" id="admin-email" value="admin@mkcollection.com">
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-top:var(--space-4)">
+                        <div class="form-group">
+                            <label class="form-label">New Password</label>
+                            <input type="password" class="form-input" id="admin-password" placeholder="Leave blank to keep current">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-input" id="admin-password-confirm" placeholder="Confirm new password">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top:var(--space-4)" onclick="saveAdminSettings()">Update Account</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast-container"></div>
+
+    <script src="../js/data.js"></script>
+    <script src="../js/store.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        function saveStoreSettings() {
+            const storeName = document.getElementById('store-name').value;
+            if (!storeName) {
+                MKAdmin.showToast('Store name is required', 'error');
+                return;
+            }
+            // Save to localStorage
+            localStorage.setItem('mk_store_settings', JSON.stringify({
+                name: storeName,
+                email: document.getElementById('store-email').value,
+                phone: document.getElementById('store-phone').value,
+                currency: document.getElementById('store-currency').value,
+                address: document.getElementById('store-address').value
+            }));
+            MKAdmin.showToast('Store settings saved successfully!', 'success');
+        }
+
+        function saveShippingSettings() {
+            localStorage.setItem('mk_shipping_settings', JSON.stringify({
+                freeShippingThreshold: document.getElementById('free-shipping').value,
+                shippingRate: document.getElementById('shipping-rate').value,
+                internationalShipping: document.getElementById('intl-shipping').checked
+            }));
+            MKAdmin.showToast('Shipping settings saved!', 'success');
+        }
+
+        function saveNotificationSettings() {
+            localStorage.setItem('mk_notification_settings', JSON.stringify({
+                notifyOrders: document.getElementById('notify-orders').checked,
+                notifyLowStock: document.getElementById('notify-low-stock').checked,
+                notifyReviews: document.getElementById('notify-reviews').checked,
+                dailySummary: document.getElementById('daily-summary').checked
+            }));
+            MKAdmin.showToast('Notification settings saved!', 'success');
+        }
+
+        function saveAdminSettings() {
+            const password = document.getElementById('admin-password').value;
+            const confirm = document.getElementById('admin-password-confirm').value;
+            
+            if (password && password !== confirm) {
+                MKAdmin.showToast('Passwords do not match', 'error');
+                return;
+            }
+            
+            localStorage.setItem('mk_admin_settings', JSON.stringify({
+                name: document.getElementById('admin-name').value,
+                email: document.getElementById('admin-email').value
+            }));
+            MKAdmin.showToast('Admin account updated!', 'success');
+            
+            // Clear password fields
+            document.getElementById('admin-password').value = '';
+            document.getElementById('admin-password-confirm').value = '';
+        }
+
+        // Load saved settings on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const storeSettings = JSON.parse(localStorage.getItem('mk_store_settings') || '{}');
+            if (storeSettings.name) document.getElementById('store-name').value = storeSettings.name;
+            if (storeSettings.email) document.getElementById('store-email').value = storeSettings.email;
+            if (storeSettings.phone) document.getElementById('store-phone').value = storeSettings.phone;
+            if (storeSettings.currency) document.getElementById('store-currency').value = storeSettings.currency;
+            if (storeSettings.address) document.getElementById('store-address').value = storeSettings.address;
+
+            const shippingSettings = JSON.parse(localStorage.getItem('mk_shipping_settings') || '{}');
+            if (shippingSettings.freeShippingThreshold) document.getElementById('free-shipping').value = shippingSettings.freeShippingThreshold;
+            if (shippingSettings.shippingRate) document.getElementById('shipping-rate').value = shippingSettings.shippingRate;
+            if (shippingSettings.internationalShipping !== undefined) document.getElementById('intl-shipping').checked = shippingSettings.internationalShipping;
+
+            const notificationSettings = JSON.parse(localStorage.getItem('mk_notification_settings') || '{}');
+            if (notificationSettings.notifyOrders !== undefined) document.getElementById('notify-orders').checked = notificationSettings.notifyOrders;
+            if (notificationSettings.notifyLowStock !== undefined) document.getElementById('notify-low-stock').checked = notificationSettings.notifyLowStock;
+            if (notificationSettings.notifyReviews !== undefined) document.getElementById('notify-reviews').checked = notificationSettings.notifyReviews;
+            if (notificationSettings.dailySummary !== undefined) document.getElementById('daily-summary').checked = notificationSettings.dailySummary;
+
+            const adminSettings = JSON.parse(localStorage.getItem('mk_admin_settings') || '{}');
+            if (adminSettings.name) document.getElementById('admin-name').value = adminSettings.name;
+            if (adminSettings.email) document.getElementById('admin-email').value = adminSettings.email;
+        });
+    </script>
+</body>
+</html>
