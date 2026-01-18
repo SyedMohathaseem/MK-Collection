@@ -9,12 +9,35 @@ const MKApp = {
         this.initHeader();
         this.initNavActive();
         this.initMobileMenu();
+        this.initMobileBottomNav();
         this.initSearch();
         this.initCartDrawer();
         this.updateCartBadge();
         this.initScrollEffects();
         this.initTooltips();
         this.initSync();
+    },
+
+    // Initialize Mobile Bottom Navigation
+    initMobileBottomNav() {
+        const accountLink = document.getElementById('mobile-nav-account');
+        if (!accountLink) return;
+
+        // Update Login/Profile label based on auth state
+        const updateAccountLabel = () => {
+            const user = typeof MKAuth !== 'undefined' ? MKAuth.getUser() : null;
+            const label = accountLink.querySelector('span');
+            if (label) {
+                label.textContent = user ? 'Profile' : 'Login';
+            }
+        };
+
+        updateAccountLabel();
+
+        // Re-check on visibility change (user may have logged in/out in another tab)
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) updateAccountLabel();
+        });
     },
 
     // Registry for page-specific refreshers
@@ -207,15 +230,17 @@ const MKApp = {
 
     // Search Functionality
     initSearch() {
-        const searchToggle = document.querySelector('[data-search-toggle]');
+        const searchToggles = document.querySelectorAll('[data-search-toggle]');
         const searchModal = document.querySelector('.search-modal');
         const searchInput = document.querySelector('.search-input');
         const searchResults = document.querySelector('.search-results');
 
-        if (searchToggle && searchModal) {
-            searchToggle.addEventListener('click', () => {
-                searchModal.classList.add('active');
-                setTimeout(() => searchInput?.focus(), 100);
+        if (searchToggles.length && searchModal) {
+            searchToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    searchModal.classList.add('active');
+                    setTimeout(() => searchInput?.focus(), 100);
+                });
             });
 
             searchModal.addEventListener('click', (e) => {
