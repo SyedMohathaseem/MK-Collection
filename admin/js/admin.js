@@ -22,11 +22,44 @@ const MKAdmin = {
         this.initCharts();
         this.setupSync();
         this.updateStats();
+        this.startAutoRefresh();
+        
+        // Register for instant updates from storefront
+        window.addEventListener('mk-store-sync', (e) => {
+            console.log(`Admin sync received: ${e.detail?.event}`);
+            this.updateStats();
+            if (document.getElementById('orders-table')) {
+                this.renderOrdersTable('orders-table');
+            }
+        });
         
         // Only render table if we are on the dashboard page
         if (document.getElementById('orders-table')) {
             this.renderOrdersTable('orders-table');
         }
+    },
+
+    startAutoRefresh() {
+        // Asynchronously refresh data every 30 seconds
+        setInterval(async () => {
+            console.log('Asynchronously refreshing admin data...');
+            try {
+                // In a real app, this would be a fetch call. 
+                // Here we update based on MKStore which is already async-safe.
+                this.updateStats();
+                
+                // If on dashboard, refresh table
+                if (document.getElementById('orders-table')) {
+                    this.renderOrdersTable('orders-table');
+                }
+                
+                // Refresh charts if needed
+                // we don't re-init Chart.js entirely to avoid flicker, 
+                // but we could update data points here.
+            } catch (error) {
+                console.error('Async refresh failed:', error);
+            }
+        }, 30000); // 30 seconds
     },
 
     initSidebar() {

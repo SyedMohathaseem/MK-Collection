@@ -183,13 +183,36 @@
             const params = new URLSearchParams(window.location.search);
             const returnUrl = params.get('return');
             
-            // Handle redirect based on role
+            // Admin users - open admin panel in NEW TAB
             if (user.role === 'admin') {
-                // If there's a return URL and it's an admin page, go there
-                if (returnUrl && returnUrl.toLowerCase().includes('/admin/')) {
+                const adminUrl = 'admin/index.html';
+                const adminWindow = window.open(adminUrl, '_blank');
+                
+                // Keep storefront active in current tab
+                if (returnUrl) {
                     window.location.href = decodeURIComponent(returnUrl);
                 } else {
-                    window.location.href = 'admin/index.html';
+                    window.location.href = 'account.html';
+                }
+
+                // If popup was blocked, show a helpful message
+                if (!adminWindow || adminWindow.closed || typeof adminWindow.closed === 'undefined') {
+                    const card = document.querySelector('.card');
+                    if (card) {
+                        card.innerHTML = `
+                            <div style="text-align:center;padding:var(--space-8)">
+                                <div style="width:64px;height:64px;background:var(--color-blush-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-6)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--color-blush-pink)" width="32" height="32"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                </div>
+                                <h3 style="margin-bottom:var(--space-2)">Admin Panel Ready</h3>
+                                <p style="color:var(--color-gray-500);margin-bottom:var(--space-6)">Your browser blocked the automatic popup. Click below to open the dashboard.</p>
+                                <a href="${adminUrl}" target="_blank" class="btn btn-primary btn-full">Open Admin Dashboard</a>
+                                <div style="margin-top:var(--space-4)">
+                                    <a href="index.html" style="font-size:var(--text-sm);color:var(--color-gray-400)">Stay on Storefront</a>
+                                </div>
+                            </div>
+                        `;
+                    }
                 }
                 return;
             }

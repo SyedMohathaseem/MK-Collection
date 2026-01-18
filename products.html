@@ -283,18 +283,16 @@
         let displayedProducts = [];
 
         function initProductsPage() {
-            MKApp.init();
-            
-            // Show skeleton loading first
-            MKSkeleton.show('#products-grid', 'product', 8);
-            
-            // Simulate loading delay then render
-            setTimeout(() => {
-                parseURLParams();
-                renderProducts();
-            }, 300);
-            
+            renderProducts();
             bindFilterEvents();
+
+            // Register for instant updates
+            MKApp.onRefresh((event) => {
+                if (event === 'products') {
+                    console.log('Products page refreshing...');
+                    renderProducts();
+                }
+            });
         }
 
         // Robust initialization for file:// protocol
@@ -339,7 +337,7 @@
         }
 
         function renderProducts() {
-            let products = displayedProducts.length ? displayedProducts : [...MKData.products];
+            let products = displayedProducts.length ? displayedProducts : [...MKStore.getProducts()];
 
             // Apply filters
             if (currentFilters.categories.length) {

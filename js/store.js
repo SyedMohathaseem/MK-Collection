@@ -327,6 +327,36 @@ const MKStore = {
         };
     },
 
+    // ========== SELECTORS (Mirroring MKData helper logic) ==========
+    getProductsByCategory(categoryId) {
+        return this.getProducts().filter(p => p.category === categoryId);
+    },
+
+    getProductsByCollection(collectionId) {
+        return this.getProducts().filter(p => p.collection === collectionId);
+    },
+
+    getNewArrivals(limit = 8) {
+        return this.getProducts().filter(p => p.isNew).slice(0, limit);
+    },
+
+    getSaleProducts(limit = 8) {
+        return this.getProducts().filter(p => p.isSale).slice(0, limit);
+    },
+
+    getFeaturedProducts(limit = 8) {
+        return this.getProducts().filter(p => p.isFeatured).slice(0, limit);
+    },
+
+    searchProducts(query) {
+        const searchTerm = query.toLowerCase();
+        return this.getProducts().filter(p => 
+            p.name.toLowerCase().includes(searchTerm) ||
+            p.description.toLowerCase().includes(searchTerm) ||
+            (p.tags && p.tags.some(tag => tag.includes(searchTerm)))
+        );
+    },
+
     // ========== RESET ==========
     resetAllData() {
         localStorage.removeItem(this.KEYS.PRODUCTS);

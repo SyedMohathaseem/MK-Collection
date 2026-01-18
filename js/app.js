@@ -14,6 +14,29 @@ const MKApp = {
         this.updateCartBadge();
         this.initScrollEffects();
         this.initTooltips();
+        this.initSync();
+    },
+
+    // Registry for page-specific refreshers
+    refreshers: [],
+    onRefresh(callback) {
+        this.refreshers.push(callback);
+    },
+
+    // Initialize cross-tab sync
+    initSync() {
+        window.addEventListener('mk-store-sync', (e) => {
+            const eventType = e.detail?.event;
+            console.log(`Sync event received: ${eventType}`);
+            
+            // Common updates
+            this.updateCartBadge();
+            
+            // Call page-specific refreshers
+            this.refreshers.forEach(cb => {
+                try { cb(eventType); } catch(err) { console.error('Refresher error:', err); }
+            });
+        });
     },
 
     // Set active nav link based on current page

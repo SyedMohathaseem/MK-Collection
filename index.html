@@ -399,34 +399,32 @@
     <script>
         // Render New Arrivals
         function initHomePage() {
-            MKApp.init();
+            renderContent();
+
+            // Register for instant updates
+            MKApp.onRefresh((event) => {
+                if (event === 'products') {
+                    console.log('Homepage refreshing products...');
+                    renderContent();
+                }
+            });
+        }
+
+        function renderContent() {
             const newArrivalsTrack = document.getElementById('new-arrivals-track');
             const saleProducts = document.getElementById('sale-products');
             
-            // Show skeletons first
             if (newArrivalsTrack) {
-                newArrivalsTrack.innerHTML = Array(4).fill(0).map(() => 
-                    `<div class="carousel-slide">${MKSkeleton.productCard()}</div>`
-                ).join('');
-            }
-            if (saleProducts) {
-                MKSkeleton.show(saleProducts, 'product', 4);
+                const products = MKStore.getNewArrivals(8);
+                newArrivalsTrack.innerHTML = products.map(p => `<div class="carousel-slide">${MKUI.renderProductCard(p)}</div>`).join('');
+                MKUI.initProductCards();
             }
             
-            // Load actual content after brief delay
-            setTimeout(() => {
-                if (newArrivalsTrack) {
-                    const products = MKData.getNewArrivals(8);
-                    newArrivalsTrack.innerHTML = products.map(p => `<div class="carousel-slide">${MKUI.renderProductCard(p)}</div>`).join('');
-                    MKUI.initProductCards();
-                }
-                
-                if (saleProducts) {
-                    const products = MKData.getSaleProducts(4);
-                    MKSkeleton.replace(saleProducts, products.map(p => MKUI.renderProductCard(p)).join(''));
-                    MKUI.initProductCards();
-                }
-            }, 400);
+            if (saleProducts) {
+                const products = MKStore.getSaleProducts(4);
+                saleProducts.innerHTML = products.map(p => MKUI.renderProductCard(p)).join('');
+                MKUI.initProductCards();
+            }
         }
 
         // Robust initialization for file:// protocol
