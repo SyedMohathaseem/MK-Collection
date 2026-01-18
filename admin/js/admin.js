@@ -20,7 +20,26 @@ const MKAdmin = {
     init() {
         this.initSidebar();
         this.initCharts();
-        this.renderOrdersTable();
+        this.setupSync();
+        this.updateStats();
+        
+        // Only render table if we are on the dashboard page
+        if (document.getElementById('orders-table')) {
+            this.renderOrdersTable('orders-table');
+        }
+    },
+
+    initSidebar() {
+        this.bindEvents();
+    },
+
+    initCharts() {
+        const salesCanvas = document.getElementById('salesChart');
+        const ordersCanvas = document.getElementById('ordersChart');
+        if (salesCanvas) initSalesChart('salesChart');
+        if (ordersCanvas) {
+            // Doughnut chart logic if needed, or just let Chart.js handle it
+        }
     },
 
     toggleSidebar() {
