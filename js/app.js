@@ -121,15 +121,49 @@ const MKApp = {
 
     // Mobile Menu
     initMobileMenu() {
+        if (this._mobileMenuInit) return;
+        
         const toggle = document.querySelector('.mobile-menu-toggle');
         const menu = document.querySelector('.mobile-menu');
 
         if (!toggle || !menu) return;
+        this._mobileMenuInit = true;
 
-        toggle.addEventListener('click', () => {
-            toggle.classList.toggle('active');
-            menu.classList.toggle('active');
-            document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+        const toggleMenu = (forceState) => {
+            const isActive = forceState !== undefined ? forceState : !menu.classList.contains('active');
+            
+            toggle.classList.toggle('active', isActive);
+            menu.classList.toggle('active', isActive);
+            document.body.style.overflow = isActive ? 'hidden' : '';
+
+            // Reset submenus when closing
+            if (!isActive) {
+                menu.querySelectorAll('.mobile-nav-submenu.active').forEach(sub => sub.classList.remove('active'));
+                menu.querySelectorAll('.icon.rotate').forEach(icon => icon.classList.remove('rotate'));
+            }
+        };
+
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (menu.classList.contains('active') && 
+                !menu.contains(e.target) && 
+                !toggle.contains(e.target)) {
+                toggleMenu(false);
+            }
+        });
+
+        // Close menu when clicking a link (handles internal anchors or slow loads)
+        const links = menu.querySelectorAll('.mobile-nav-link:not([data-submenu]), .mobile-nav-submenu a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMenu(false);
+            });
         });
 
         // Submenu toggles
@@ -137,8 +171,10 @@ const MKApp = {
         submenuToggles.forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 const submenu = item.nextElementSibling;
                 if (submenu) {
+                    // Close other submenus if they exist or just toggle
                     submenu.classList.toggle('active');
                     item.querySelector('.icon')?.classList.toggle('rotate');
                 }

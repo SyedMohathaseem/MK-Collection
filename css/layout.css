@@ -294,6 +294,8 @@
     height: 44px;
     padding: 10px;
     cursor: pointer;
+    flex-shrink: 0;
+    z-index: 1001;
 }
 
 .mobile-menu-toggle span {
@@ -590,6 +592,20 @@ body {
 
     .mobile-menu-toggle {
         display: flex;
+        align-items: center;
+    }
+
+    .header-inner {
+        position: relative;
+        padding: 0 var(--space-4);
+    }
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        margin: 0;
     }
 
     .header {
