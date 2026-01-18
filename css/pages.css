@@ -1402,6 +1402,40 @@
     .sidebar {
         position: static;
         width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .sidebar .filter-section {
+        text-align: center;
+    }
+
+    .sidebar .filter-title {
+        text-align: center;
+    }
+
+    .sidebar .filter-options {
+        align-items: center;
+    }
+
+    .sidebar .size-options {
+        justify-content: center;
+    }
+
+    .sidebar .filter-color-options {
+        justify-content: center;
+    }
+
+    .sidebar .price-range {
+        justify-content: center;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .sidebar .btn {
+        margin: 0 auto;
+        max-width: 200px;
     }
 
     .products-grid {
