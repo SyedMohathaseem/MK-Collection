@@ -282,7 +282,7 @@
         let currentSort = 'featured';
         let displayedProducts = [];
 
-        document.addEventListener('DOMContentLoaded', () => {
+        function initProductsPage() {
             MKApp.init();
             
             // Show skeleton loading first
@@ -295,7 +295,14 @@
             }, 300);
             
             bindFilterEvents();
-        });
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initProductsPage);
+        } else {
+            initProductsPage();
+        }
 
         function parseURLParams() {
             const params = new URLSearchParams(window.location.search);

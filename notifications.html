@@ -117,10 +117,17 @@
     <script src="js/notify.js"></script>
     <script src="js/app.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        function initNotificationsPage() {
             MKApp.init();
             loadNotifications();
-        });
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initNotificationsPage);
+        } else {
+            initNotificationsPage();
+        }
 
         function loadNotifications() {
             const notifications = MKNotify.getNotifications();

@@ -97,7 +97,17 @@
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', renderWishlist);
+        function initWishlistPage() {
+            MKApp.init();
+            renderWishlist();
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initWishlistPage);
+        } else {
+            initWishlistPage();
+        }
 
         function renderWishlist() {
             const items = MKWishlist.getItems();

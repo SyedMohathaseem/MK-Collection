@@ -100,7 +100,7 @@
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        function initLoginPage() {
             // Pre-fill remembered email
             const rememberedEmail = MKAuth.getRememberedEmail();
             if (rememberedEmail) {
@@ -123,7 +123,14 @@
                     document.querySelector(`[data-tab-content="${tab.dataset.tab}"]`).classList.add('active');
                 });
             });
-        });
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLoginPage);
+        } else {
+            initLoginPage();
+        }
 
         async function handleLogin(e) {
             e.preventDefault();

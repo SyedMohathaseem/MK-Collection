@@ -288,14 +288,21 @@
         let selectedColor = null;
         let selectedSize = null;
 
-        document.addEventListener('DOMContentLoaded', () => {
+        function initProductDetailPage() {
             MKApp.init();
             const params = new URLSearchParams(window.location.search);
             const productId = params.get('id') || 'prod-001';
             loadProduct(productId);
             MKUI.initAccordion(document.querySelector('.accordion'));
             MKUI.initQuantitySelectors();
-        });
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initProductDetailPage);
+        } else {
+            initProductDetailPage();
+        }
 
         function loadProduct(productId) {
             currentProduct = MKData.getProductById(productId);

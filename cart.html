@@ -133,7 +133,17 @@
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', renderCart);
+        function initCartPage() {
+            MKApp.init();
+            renderCart();
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCartPage);
+        } else {
+            initCartPage();
+        }
 
         function renderCart() {
             const items = MKCart.getItems();

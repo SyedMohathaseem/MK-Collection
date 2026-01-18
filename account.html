@@ -173,7 +173,7 @@
     <script src="js/notify.js"></script>
     <script src="js/app.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        function initAccountPage() {
             MKApp.init();
             // Use isWebsiteUser to exclude admins - they should use admin panel only
             if (!MKAuth.isWebsiteUser()) {
@@ -201,7 +201,14 @@
                     document.getElementById(link.dataset.section).style.display = 'block';
                 });
             });
-        });
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAccountPage);
+        } else {
+            initAccountPage();
+        }
 
         async function updateProfile(e) {
             e.preventDefault();

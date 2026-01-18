@@ -185,7 +185,7 @@
     <script src="js/ui.js"></script>
     <script src="js/app.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        function initCheckoutPage() {
             const items = MKCart.getItems();
             if (items.length === 0) {
                 window.location.href = 'cart.html';
@@ -206,7 +206,14 @@
             if (subtotal >= 150) {
                 document.getElementById('standard-shipping-price').textContent = 'FREE';
             }
-        });
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCheckoutPage);
+        } else {
+            initCheckoutPage();
+        }
 
         function renderOrderSummary() {
             const items = MKCart.getItems();

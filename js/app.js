@@ -460,7 +460,12 @@ const MKApp = {
     }
 };
 
-// Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize on DOM ready (handles both cases: before and after DOMContentLoaded)
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        MKApp.init();
+    });
+} else {
+    // DOM already loaded, initialize immediately
     MKApp.init();
-});
+}

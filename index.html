@@ -398,7 +398,7 @@
     <script src="js/app.js"></script>
     <script>
         // Render New Arrivals
-        document.addEventListener('DOMContentLoaded', () => {
+        function initHomePage() {
             MKApp.init();
             const newArrivalsTrack = document.getElementById('new-arrivals-track');
             const saleProducts = document.getElementById('sale-products');
@@ -427,7 +427,14 @@
                     MKUI.initProductCards();
                 }
             }, 400);
-        });
+        }
+
+        // Robust initialization for file:// protocol
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initHomePage);
+        } else {
+            initHomePage();
+        }
     </script>
 </body>
 </html>
