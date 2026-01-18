@@ -16,6 +16,8 @@ const MKAuth = {
         if (!sessionStorage.getItem(this.sessionMarker)) {
             localStorage.removeItem(this.customerStorageKey);
             localStorage.removeItem(this.adminStorageKey);
+            // Also reset user database to fix any stale password hashes
+            localStorage.removeItem('mk_users');
         }
         // Set the marker for this browser session
         sessionStorage.setItem(this.sessionMarker, 'true');

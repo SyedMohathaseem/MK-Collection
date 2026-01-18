@@ -136,7 +136,12 @@
                 MKUI.setLoading(btn, true);
                 await MKAuth.login(email, password, remember);
                 MKApp.showToast('Welcome back!', 'success');
-                setTimeout(redirectAfterLogin, 1000);
+                
+                // Clear loading immediately before redirect
+                MKUI.setLoading(btn, false);
+                
+                // Small delay then redirect
+                setTimeout(redirectAfterLogin, 500);
             } catch (error) {
                 MKUI.setLoading(btn, false);
                 MKApp.showToast(error.message, 'error');
