@@ -32,13 +32,17 @@ const MKAuth = {
     },
 
     /**
-     * Get current user from appropriate session
+     * Get appropriate session (prefers admin if both exist)
      */
     getUser() {
-        this.init(); // Always check session marker
-        const key = this._getStorageKey();
-        const stored = localStorage.getItem(key);
-        return stored ? JSON.parse(stored) : null;
+        this.init();
+        const adminSession = localStorage.getItem(this.adminStorageKey);
+        if (adminSession) return JSON.parse(adminSession);
+        
+        const customerSession = localStorage.getItem(this.customerStorageKey);
+        if (customerSession) return JSON.parse(customerSession);
+        
+        return null;
     },
 
     /**
@@ -72,7 +76,7 @@ const MKAuth = {
     },
 
     /**
-     * Check if admin is logged in (for admin panel)
+     * Check if admin is logged in
      */
     isAdminLoggedIn() {
         const user = this.getAdminUser();

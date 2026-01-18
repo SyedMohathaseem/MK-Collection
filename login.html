@@ -183,18 +183,14 @@
             const params = new URLSearchParams(window.location.search);
             const returnUrl = params.get('return');
             
-            // Admin users - open admin panel in NEW TAB
+            // Handle redirect based on role
             if (user.role === 'admin') {
-                window.open('admin/index.html', '_blank');
-                // Show success message on login page
-                document.querySelector('.auth-tabs').innerHTML = `
-                    <div style="text-align:center;padding:var(--space-8)">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="var(--color-success)" width="64" height="64" style="margin:0 auto var(--space-4)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <h3 style="margin-bottom:var(--space-2)">Admin Panel Opened</h3>
-                        <p style="color:var(--color-gray-500)">Check your new browser tab</p>
-                        <a href="index.html" class="btn btn-secondary" style="margin-top:var(--space-4)">Back to Store</a>
-                    </div>
-                `;
+                // If there's a return URL and it's an admin page, go there
+                if (returnUrl && returnUrl.toLowerCase().includes('/admin/')) {
+                    window.location.href = decodeURIComponent(returnUrl);
+                } else {
+                    window.location.href = 'admin/index.html';
+                }
                 return;
             }
 
