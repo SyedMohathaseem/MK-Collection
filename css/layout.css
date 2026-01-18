@@ -1102,8 +1102,16 @@ body {
         padding-bottom: calc(var(--space-8) + 70px);
     }
 
-    /* Hide header action icons on mobile/tablet - they're in the bottom nav now */
-    .header-actions {
+    /* Hide header action icons on mobile/tablet EXCEPT cart - it stays in header */
+    .header-actions .header-action[data-search-toggle],
+    .header-actions .header-action[href="account.html"],
+    .header-actions .header-action[href="notifications.html"],
+    .header-actions .header-action[href="wishlist.html"] {
         display: none;
+    }
+
+    /* Keep the cart icon visible and styled */
+    .header-actions [data-cart-toggle] {
+        display: flex;
     }
 }
